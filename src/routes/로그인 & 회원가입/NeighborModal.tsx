@@ -37,6 +37,8 @@ interface AddressType {
 function Modal({ onClickToggleModal, children }: PropsWithChildren<ModalDefaultType>) {
   //////////모달//////////
   const [tab1, setTab] = useState<string>('curr');
+  const [isDisabled_1, setIsDisabled_1] = useState(true);
+  const [isDisabled_2, setIsDisabled_2] = useState(true);
 
   function setDealTab(tab) {
     setTab(tab);
@@ -187,7 +189,14 @@ function Modal({ onClickToggleModal, children }: PropsWithChildren<ModalDefaultT
         const arr = { ...result };
         const _arr = arr[0].address.address_name;
         console.log('kakao주소1', _arr);
-        setParcel_1(_arr);
+        if (_arr) {
+          setParcel_1(_arr);
+          setIsDisabled_1(false);
+        } else {
+          // _arr에 값이 없는 경우에 대한 처리
+          setParcel_1('');
+          setIsDisabled_1(true);
+        }
       }
     };
     geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
@@ -204,12 +213,18 @@ function Modal({ onClickToggleModal, children }: PropsWithChildren<ModalDefaultT
         const arr = { ...result };
         const _arr = arr[0].address.address_name;
         console.log('kakao주소2', _arr);
-        setParcel_2(_arr);
+        if (_arr) {
+          setParcel_2(_arr);
+          setIsDisabled_2(false);
+        } else {
+          // _arr에 값이 없는 경우에 대한 처리
+          setParcel_2('');
+          setIsDisabled_2(true);
+        }
       }
     };
     geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
   }
-
 
   return (
     <div className={styles.box1}>
@@ -223,8 +238,7 @@ function Modal({ onClickToggleModal, children }: PropsWithChildren<ModalDefaultT
             </div>
           </div>
           <div className={styles.plusBtnBox}>
-            {/*<button className={styles.plusBtn1}>첫번째 주소를 추가해주세요</button>*/}
-            {/*<button className={styles.plusBtn2}>두번째 주소를 추가해주세요</button>*/}
+
             {tab1 === 'curr' ?
               <button className={`${styles['plusBtn1' + (tab1 === 'curr' ? 'active' : '')]}`} onClick={() => {
                 setDealTab('curr');
@@ -251,11 +265,11 @@ function Modal({ onClickToggleModal, children }: PropsWithChildren<ModalDefaultT
                     <input type='text' placeholder={'첫번째 주소 이름을 적어주세요.       [ 예시:  집, 회사 ]'}
                            className={`${styles['input2' + (tab1 === 'curr' ? 'active' : '')]}`}
                            onChange={inputAddressName_1} />
-                    <button className={styles.registerBtn} onClick={() => {
+                    <button className={styles.registerBtn} disabled={isDisabled_1} onClick={() => {
                       postAddressData_1();
                       setCount1(count1 + 1);
-                    }}>등록
-                    </button>
+                    }}>등록</button>
+
                   </> :
                   <>
                     <p className={styles.input1}>지번 주소</p>
@@ -283,12 +297,7 @@ function Modal({ onClickToggleModal, children }: PropsWithChildren<ModalDefaultT
 
                   </>
               }
-              {/*<input type="text" placeholder={'첫번째 주소 이름을 적어주세요.       [ 예시:  집, 회사 ]'} className={styles.input2}/>*/}
             </div>
-            {/*<div className={styles.outputBox}>*/}
-            {/*    <p className={styles.input1}>지번주소</p>*/}
-            {/*    <div className={styles.parcel}>주소자리</div>*/}
-            {/*</div>*/}
           </div>
         </div>
 
