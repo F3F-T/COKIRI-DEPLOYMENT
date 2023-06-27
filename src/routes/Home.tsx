@@ -249,7 +249,7 @@ const Home = () => {
 
                 }
 
-                {/*<button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>*/}
+
                 {
                   store.userAddressInfoReducer.addressId1 == undefined ?
                     <button className={cx('startBtn')} onClick={() => onClickToggleModal()}>내 물건 올리기</button>
