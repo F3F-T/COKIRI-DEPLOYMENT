@@ -47,6 +47,7 @@ const jwtTokenSlice = createSlice({
 })
 
 //배포 test
+//
 //위에서 선언해준 counterSlice의 reducer를 export해준다
 export default jwtTokenSlice.reducer;
 export const {setToken,deleteToken,logoutToken} = jwtTokenSlice.actions;
