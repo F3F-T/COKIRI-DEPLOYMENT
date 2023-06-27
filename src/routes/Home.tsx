@@ -161,59 +161,10 @@ const HomeKirikiriTrade = () => {
   );
 };
 
-const HomeStart = () => {
-  const navigate = useNavigate();
-  const store = useSelector((state: Rootstate) => state);
-  const onClickStart = () => {
-    navigate(`/login`);
-  };
-
-  const onClickUpload = () => {
-    navigate(`/upload`);
-  };
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
-  return (
-    <div className={styles.boxbox}>
-      {isOpenModal && (
-        <Modal onClickToggleModal={onClickToggleModal}>
-          <embed type='text/html' width='800' height='608' />
-        </Modal>
-      )}
-      <section className={styles.start}>
-        <div className={styles.startLeft}>CO끼리</div>
-        <div className={styles.startRight}>
-          <div className={styles.startRight1}>
-            사용하지 않는 물건이 있나요? <br />
-            끼리끼리 교환하며 새로운 가치를 만나보세요.
-          </div>
-          <div className={styles.startRight2}>
-            {
-              store.userInfoReducer.id == null ?
-                <button className={cx('startBtn')} onClick={onClickStart}>시작하기</button> :
-                <></>
-
-            }
-
-            {/*<button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>*/}
-            <button className={cx('startBtn')} onClick={() => onClickToggleModal()}>내 물건 올리기</button>
-
-            {/*<Button className={"lightblue"} content={"시작하기"} onClick={onClickStart} color={"black"} hover={true} size={"medium"}/>*/}
-            {/*<Button className={"lightblue"} content={"내 물건 올리기"} onClick={onClickUpload} color={"black"} hover={true} size={"medium"}/>*/}
-
-          </div>
-        </div>
-
-      </section>
-
-    </div>
-  );
-};
 const Home = () => {
   const navigate = useNavigate();
   const store = useSelector((state: Rootstate) => state);
+  console.log(store )
   const onClickStart = () => {
     navigate(`/login`);
   };
@@ -225,6 +176,9 @@ const Home = () => {
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
+
+  console.log(store)
+
   return (
     <div className={styles.wrap}>
       <div className={styles.boxbox}>
@@ -243,7 +197,7 @@ const Home = () => {
               </div>
               <div className={styles.startRight2}>
                 {
-                  store.userInfoReducer.id == null ?
+                  store.userInfoReducer.id === 0 ?
                     <button className={cx('startBtn')} onClick={onClickStart}>시작하기</button> :
                     <></>
 
