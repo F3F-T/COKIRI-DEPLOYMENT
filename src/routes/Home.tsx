@@ -226,7 +226,9 @@ const Home = () => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
+  // console.log(store)
   console.log(store)
+
 
   return (
     <div className={styles.wrap}>
