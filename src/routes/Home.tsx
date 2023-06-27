@@ -225,6 +225,11 @@ const Home = () => {
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
+
+  // console.log(store)
+  console.log(store)
+
+
   return (
     <div className={styles.wrap}>
       <div className={styles.boxbox}>
@@ -243,15 +248,16 @@ const Home = () => {
               </div>
               <div className={styles.startRight2}>
                 {
+                  store.userInfoReducer.id === undefined ||
                   store.userInfoReducer.id === 0 ?
                     <button className={cx('startBtn')} onClick={onClickStart}>시작하기</button> :
                     <></>
 
                 }
 
-
+                {/*<button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>*/}
                 {
-                  store.userAddressInfoReducer.addressId1 == undefined ?
+                  store.userAddressInfoReducer.addressName1 == null ?
                     <button className={cx('startBtn')} onClick={() => onClickToggleModal()}>내 물건 올리기</button>
                     :
                     <button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>
