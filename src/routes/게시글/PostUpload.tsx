@@ -64,47 +64,47 @@ const PostUpload = () => {
   }
 
   const categories: Category[] =
-    [
-      { name: '도서' },
-      { name: '식품' },
-      { name: '티켓/교환권' },
-      { name: '의류' },
-      { name: '서비스/기술' },
-      { name: '유아동용품' },
-      { name: '운동용품' },
-      { name: '가구' },
-      { name: '뷰티/미용' },
-      { name: '반려동물용품' },
-      { name: '식물' },
-      { name: '취미/게임' },
-      { name: '수집품' },
-      { name: '인테리어' },
-      { name: '생활/주방' },
-      { name: '전자기기' },
-      { name: '기타' },
-    ];
+      [
+        { name: '도서' },
+        { name: '식품' },
+        { name: '티켓/교환권' },
+        { name: '의류' },
+        { name: '서비스/기술' },
+        { name: '유아동용품' },
+        { name: '운동용품' },
+        { name: '가구' },
+        { name: '뷰티/미용' },
+        { name: '반려동물용품' },
+        { name: '식물' },
+        { name: '취미/게임' },
+        { name: '수집품' },
+        { name: '인테리어' },
+        { name: '생활/주방' },
+        { name: '전자기기' },
+        { name: '기타' },
+      ];
 
   const categories2: Category[] =
-    [
-      { name: '도서' },
-      { name: '식품' },
-      { name: '티켓/교환권' },
-      { name: '의류' },
-      { name: '서비스/기술' },
-      { name: '유아동용품' },
-      { name: '운동용품' },
-      { name: '가구' },
-      { name: '뷰티/미용' },
-      { name: '반려동물용품' },
-      { name: '식물' },
-      { name: '취미/게임' },
-      { name: '수집품' },
-      { name: '인테리어' },
-      { name: '생활/주방' },
-      { name: '전자기기' },
-      { name: '기타' },
-      { name: '상관없음' },
-    ];
+      [
+        { name: '도서' },
+        { name: '식품' },
+        { name: '티켓/교환권' },
+        { name: '의류' },
+        { name: '서비스/기술' },
+        { name: '유아동용품' },
+        { name: '운동용품' },
+        { name: '가구' },
+        { name: '뷰티/미용' },
+        { name: '반려동물용품' },
+        { name: '식물' },
+        { name: '취미/게임' },
+        { name: '수집품' },
+        { name: '인테리어' },
+        { name: '생활/주방' },
+        { name: '전자기기' },
+        { name: '기타' },
+        { name: '상관없음' },
+      ];
 
   const navigate = useNavigate();
   const [showImages, setShowImages] = useState([]);
@@ -185,9 +185,9 @@ const PostUpload = () => {
       alert('업로드 성공');
       navigate(`/`);
     } catch (err) {
-      setIsUploading(false);
+      // setIsUploading(false);
       console.log(err);
-      alert('업로드 실패');
+      alert('업로드 실ㅌ패');
     }
 
   }
@@ -206,11 +206,11 @@ const PostUpload = () => {
 
   const onClickUploadButton = async () => {
 
-    if (isUploading) {
-      return;
-    }
-
-    setIsUploading(true);
+    // if (isUploading) {
+    //   return;
+    // }
+    //
+    // setIsUploading(true);
 
     console.log(uploadData);
 
@@ -228,11 +228,11 @@ const PostUpload = () => {
 
     //사진 업로드 필수항목 검증
     if (!(uploadData.title &&
-      uploadData.tag &&
-      uploadData.price &&
-      uploadData.content &&
-      uploadData.wishCategory &&
-      uploadData.productCategory)) {
+        uploadData.tag &&
+        uploadData.price &&
+        uploadData.content &&
+        uploadData.wishCategory &&
+        uploadData.productCategory)) {
       alert('업로드 할 내용을 다 채워주세요.');
     } else {
       const photoUrlList = await imageUpload();
@@ -385,133 +385,134 @@ const PostUpload = () => {
 
 
   return (
-    <div className={styles.postBox}>
-      {isOpenModal && (
-        <Modal onClickToggleModal={onClickToggleModal}>
-          <embed type='text/html' width='800' height='608' />
-        </Modal>
-      )}
-      <div className={styles.postUpload}>
-        <div className={styles.header}>
-          <p className={styles.header_1}>기본 정보</p>
-          <p className={styles.header_2}>* 필수 정보</p>
-        </div>
-        <div className={styles.container}>
-          <div className={styles.item1}>
-            <img className={styles.photos} src={photo} onClick={() => {
-              fileInput.current.click();
-            }} />
-            {
-              showImages.map((image, id) => (
+      <div className={styles.postBox}>
+        {isOpenModal && (
+            <Modal onClickToggleModal={onClickToggleModal}>
+              <embed type='text/html' width='800' height='608' />
+            </Modal>
+        )}
+        <div className={styles.postUpload}>
+          <div className={styles.header}>
+            <p className={styles.header_1}>기본 정보</p>
+            <p className={styles.header_2}>* 필수 정보</p>
+          </div>
+          <div className={styles.container}>
+            <div className={styles.item1}>
+              <img className={styles.photos} src={photo} onClick={() => {
+                fileInput.current.click();
+              }} />
+              {
+                showImages.map((image, id) => (
 
-                <div className={styles.imgClass}><img className={styles.photos} alt={`${image}-${id}`}
-                                                      key={image.id} src={image}
-                                                      onClick={() => onClickToggleModal()} />
-                  <TiDelete key={id} className={styles.imgRemoveButton} onClick={(e) => {
-                    deleteImg(id);
-                  }} />
-                </div>
-              ))
-            }
-            <form>
-              <input type='file' style={{ display: 'none' }} multiple accept='image/*'
-                     onChange={onChangeImg} ref={fileInput} />
-            </form>
-            <p className={styles.photoText}>최대 10장의 사진을 등록해주세요.</p>
-          </div>
-          <div className={styles.item2}>
-            <p className={styles.star}>*</p><input type='text' className={styles.item2_2}
-                                                   placeholder=' 글 제목을 적어주세요.' onBlur={onChangeTitle} />
-          </div>
-          <div className={styles.item2}>
-            <p className={styles.star}>*</p> <NumericFormat className={styles.item2_2}
-                                                            placeholder=' 생각하는 물건의 가격대를 숫자로 적어주세요.'
-                                                            prefix={'₩'} allowLeadingZeros
-                                                            thousandSeparator=','
-                                                            onValueChange={(values) => {
-                                                              onChangePriceSecond(values.floatValue);
-                                                            }} />
-          </div>
-          <div className={styles.contentAreaBox}>
-            <p className={styles.star}>*</p>
-            <textarea className={styles.contentArea} placeholder=' 게시글 본문을 최대 7줄로 작성해주세요.'
-                      onBlur={onChangeContent} spellCheck={'false'} />
-          </div>
-          <div className={styles.categoryBox}>
-            <p className={styles.star}>*</p>
-            <p className={styles.categoryText}>올릴 물건의 카테고리를 선택해주세요.</p>
-          </div>
-          <div className={styles.categoryBox2}>
-            <Select
-              styles={{ // zIndex
-                menu: provided => ({ ...provided, zIndex: 999 }),
-              }}
-              // If you don't need a state you can remove the two following lines value & onChange
-              value={productState.selectedCategory}
-              onChange={(option: Category | null) => {
-                setUploadData((prevState) => {
-                  return { ...prevState, productCategory: option.name };
-                });
-                setProductState({ selectedCategory: option });
-              }}
-              getOptionLabel={(category: Category) => category.name}
-              getOptionValue={(category: Category) => category.name}
-              options={categories}
-              isClearable={true}
-              backspaceRemovesValue={true}
-              placeholder={'전체'}
+                    <div className={styles.imgClass}><img className={styles.photos} alt={`${image}-${id}`}
+                                                          key={image.id} src={image}
+                                                          onClick={() => onClickToggleModal()} />
+                      <TiDelete key={id} className={styles.imgRemoveButton} onClick={(e) => {
+                        deleteImg(id);
+                      }} />
+                    </div>
+                ))
+              }
+              <form>
+                <input type='file' style={{ display: 'none' }} multiple accept='image/*'
+                       onChange={onChangeImg} ref={fileInput} />
+              </form>
+              <p className={styles.photoText}>최대 10장의 사진을 등록해주세요.</p>
+            </div>
+            <div className={styles.item2}>
+              <p className={styles.star}>*</p><input type='text' className={styles.item2_2}
+                                                     placeholder=' 글 제목을 적어주세요.' onBlur={onChangeTitle} />
+            </div>
+            <div className={styles.item2}>
+              <p className={styles.star}>*</p> <NumericFormat className={styles.item2_2}
+                                                              placeholder=' 생각하는 물건의 가격대를 숫자로 적어주세요.'
+                                                              prefix={'₩'} allowLeadingZeros
+                                                              thousandSeparator=','
+                                                              onValueChange={(values) => {
+                                                                onChangePriceSecond(values.floatValue);
+                                                              }} />
+            </div>
+            <div className={styles.contentAreaBox}>
+              <p className={styles.star}>*</p>
+              <textarea className={styles.contentArea} placeholder=' 게시글 본문을 최대 7줄로 작성해주세요.'
+                        onBlur={onChangeContent} spellCheck={'false'} />
+            </div>
+            <div className={styles.categoryBox}>
+              <p className={styles.star}>*</p>
+              <p className={styles.categoryText}>올릴 물건의 카테고리를 선택해주세요.</p>
+            </div>
+            <div className={styles.categoryBox2}>
+              <Select
+                  styles={{ // zIndex
+                    menu: provided => ({ ...provided, zIndex: 999 }),
+                  }}
+                  // If you don't need a state you can remove the two following lines value & onChange
+                  value={productState.selectedCategory}
+                  onChange={(option: Category | null) => {
+                    setUploadData((prevState) => {
+                      return { ...prevState, productCategory: option.name };
+                    });
+                    setProductState({ selectedCategory: option });
+                  }}
+                  getOptionLabel={(category: Category) => category.name}
+                  getOptionValue={(category: Category) => category.name}
+                  options={categories}
+                  isClearable={true}
+                  backspaceRemovesValue={true}
+                  placeholder={'전체'}
+              />
+
+            </div>
+            <div className={styles.categoryBox}>
+              <p className={styles.star}>*</p>
+              <p className={styles.categoryText2}>원하는 물건의 카테고리를 선택해주세요.</p>
+            </div>
+            <div className={styles.categoryBox2}>
+              <Select
+                  styles={{ // zIndex
+                    menu: provided => ({ ...provided, zIndex: 999 }),
+                  }}
+                  // If you don't need a state you can remove the two following lines value & onChange
+                  value={wishState.selectedCategory}
+                  onChange={(option: Category | null) => {
+                    setUploadData((prevState) => {
+                      return { ...prevState, wishCategory: option.name };
+                    });
+                    setWishState({ selectedCategory: option });
+                  }}
+                  getOptionLabel={(category: Category) => category.name}
+                  getOptionValue={(category: Category) => category.name}
+                  options={categories2}
+                  isClearable={true}
+                  backspaceRemovesValue={true}
+                  placeholder={'전체'}
+              />
+
+            </div>
+
+            <Tags
+                className={styles.customLook}
+                settings={settings}
+                placeholder='최대 6개의 해시태그를 적어주세요.'
+                //여기서 자동완성을 설정할수있음, 추후에 서버에서 tag 리스트를 가져와서 넣으면 될듯
+                whitelist={['스팸', '식품', '과일존맛', '신상품', '스팸클래식', '이게자동완성이라는건데요']}
+                // defaultValue="a,b,c"
+                onChange={onChange}
             />
 
-          </div>
-          <div className={styles.categoryBox}>
-            <p className={styles.star}>*</p>
-            <p className={styles.categoryText2}>원하는 물건의 카테고리를 선택해주세요.</p>
-          </div>
-          <div className={styles.categoryBox2}>
-            <Select
-              styles={{ // zIndex
-                menu: provided => ({ ...provided, zIndex: 999 }),
-              }}
-              // If you don't need a state you can remove the two following lines value & onChange
-              value={wishState.selectedCategory}
-              onChange={(option: Category | null) => {
-                setUploadData((prevState) => {
-                  return { ...prevState, wishCategory: option.name };
-                });
-                setWishState({ selectedCategory: option });
-              }}
-              getOptionLabel={(category: Category) => category.name}
-              getOptionValue={(category: Category) => category.name}
-              options={categories2}
-              isClearable={true}
-              backspaceRemovesValue={true}
-              placeholder={'전체'}
-            />
 
           </div>
 
-          <Tags
-            className={styles.customLook}
-            settings={settings}
-            placeholder='최대 6개의 해시태그를 적어주세요.'
-            //여기서 자동완성을 설정할수있음, 추후에 서버에서 tag 리스트를 가져와서 넣으면 될듯
-            whitelist={['스팸', '식품', '과일존맛', '신상품', '스팸클래식', '이게자동완성이라는건데요']}
-            // defaultValue="a,b,c"
-            onChange={onChange}
-          />
+          <div className={styles.btnPlace}>
+            {/*<button className={styles.uploadBtn} onClick={onClickUploadButton} disabled={isUploading}>*/}
+            <button className={styles.uploadBtn} onClick={onClickUploadButton}>
+              내 물건 올리기
+            </button>
+          </div>
 
-
-        </div>
-
-        <div className={styles.btnPlace}>
-          <button className={styles.uploadBtn} onClick={onClickUploadButton} disabled={isUploading}>
-            내 물건 올리기
-          </button>
         </div>
 
       </div>
-
-    </div>
 
 
   );

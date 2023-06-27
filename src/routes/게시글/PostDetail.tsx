@@ -342,8 +342,6 @@ const PostDetail = () => {
   }
 
   //여기까지 함민혁코드
-
-
   // const onClickPost = (post) => {
   //     console.log(post)
   //     console.log(post.id)
@@ -473,10 +471,6 @@ const PostDetail = () => {
   if (!commentList) {
     return null;
   }
-  // console.log(post)
-  // console.log(post.images);
-  // console.log(store.refreshReducer.commentChange);
-
 
   //게시글 작성자 판단
 
@@ -508,8 +502,6 @@ const PostDetail = () => {
     return prev;
   }, []);
 
-  // console.log(commentSort);
-  // console.log(scrapSaved);
   const onClickUserPage = () => {
     console.log('클릭');
     navigate(`/mypage/${post.userInfoWithAddress.userDetail.id}`, { state: post.userInfoWithAddress.userDetail.id });
