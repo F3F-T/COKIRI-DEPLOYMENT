@@ -312,7 +312,6 @@ const AddressChange = () => {
                   <button className={styles.registerBtn} onClick={deleteAddress_2}>삭제</button>
                 </>
             }
-            {/*<input type="text" placeholder={'첫번째 주소 이름을 적어주세요.       [ 예시:  집, 회사 ]'} className={styles.input2}/>*/}
           </div>
         </div>
       </div>
