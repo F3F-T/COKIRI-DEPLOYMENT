@@ -25,7 +25,7 @@ import {
     parcelAddress1, parcelAddress2,
     setAddress1,
     setAddress2,
-    setAddressName1, setAddressName2, setLat1, setLat2, setLng1, setLng2,
+    setAddressName1, setAddressName2, setLat1, setLat2, setLng1, setLng2, setOneWord1,
     setUserAddressInfo1, setUserAddressInfo2
 } from "../../store/userAddressInfoReducer";
 
@@ -73,11 +73,11 @@ const Login = () => {
             //interceptor를 사용한 방식 (header에 token값 전달)
         try{
             const res = await Api.post('/login',userInfo);
-            console.log(res)
             const accessToken = res.data;
             //jwt 토큰 redux에 넣기
             const jwtToken = accessToken.tokenInfo;
             console.log(jwtToken)
+            console.log("유저 정보 확인",res.data.userInfo)
             console.log("바뀐address",res.data.userInfo.address[1])
             dispatch(setToken(jwtToken));
             dispatch(setUserInfo(res.data.userInfo.userDetail))
@@ -86,6 +86,9 @@ const Login = () => {
                 dispatch(setUserAddressInfo1(res.data.userInfo.address[0].id))
                 dispatch(setAddressName1(res.data.userInfo.address[0].addressName))
                 dispatch(parcelAddress1(res.data.userInfo.address[0].postalAddress))
+                const oneWord1 = res.data.userInfo.address[0].postalAddress.split(' ');
+                const dongName1 = oneWord1[2];
+                dispatch(setOneWord1(dongName1));
                 dispatch(setLat1(res.data.userInfo.address[0].latitude))
                 dispatch(setLng1(res.data.userInfo.address[0].longitude))
             }
@@ -93,10 +96,12 @@ const Login = () => {
                 dispatch(setUserAddressInfo2(res.data.userInfo.address[1].id))
                 dispatch(setAddressName2(res.data.userInfo.address[1].addressName))
                 dispatch(parcelAddress2(res.data.userInfo.address[1].postalAddress))
+                const oneWord2 = res.data.userInfo.address[0].postalAddress.split(' ');
+                const dongName2 = oneWord2[2];
+                dispatch(setOneWord1(dongName2));
                 dispatch(setLat2(res.data.userInfo.address[1].latitude))
                 dispatch(setLng2(res.data.userInfo.address[1].longitude))
             }
-
             // dispatch(setAddress1(res.data.userInfo.address[0]))
             // dispatch(setAddress2(res.data.userInfo.address[1]))
             console.log("store",store)
@@ -153,9 +158,9 @@ const Login = () => {
                     dispatch(setLng1(res1.data.userInfo.address[0].longitude))
                 }
                 if(res1.data.userInfo.address[1]!=null){
-                    dispatch(setUserAddressInfo2(res1   .data.userInfo.address[1].id))
+                    dispatch(setUserAddressInfo2(res1.data.userInfo.address[1].id))
                     dispatch(setAddressName2(res1.data.userInfo.address[1].addressName))
-                    dispatch(parcelAddress2(res1    .data.userInfo.address[1].postalAddress))
+                    dispatch(parcelAddress2(res1.data.userInfo.address[1].postalAddress))
                     dispatch(setLat2(res1.data.userInfo.address[1].latitude))
                     dispatch(setLng2(res1.data.userInfo.address[1].longitude))
                 }

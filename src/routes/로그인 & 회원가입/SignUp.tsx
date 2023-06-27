@@ -472,7 +472,6 @@ const SignUp = () => {
             <Message validCheck={validationCheck.phoneNumberCheckBoolean}
                      content={'❌ 이미 가입된 핸드폰 번호입니다.'} />)}
       </div>
-      정
       <div className={styles.btnPlace}>
         <Button content={'회원가입'} className={'black'} onClick={signUpButtonClick} />
       </div>

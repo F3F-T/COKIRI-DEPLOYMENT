@@ -49,7 +49,8 @@ interface props {
 const AddressChange = () => {
   //////////모달//////////
   const [tab1, setTab] = useState<string>('curr');
-
+  const [isDisabled_1, setIsDisabled_1] = useState(true);
+  const [isDisabled_2, setIsDisabled_2] = useState(true);
   function setDealTab(tab) {
     setTab(tab);
     // console.log(tab1)
@@ -201,10 +202,14 @@ const AddressChange = () => {
         const _arr = arr[0].address.address_name;
         const onewordAddress1 = arr[0].address.region_3depth_name;
         console.log('kakao주소1', _arr);
-        setOneWord1(onewordAddress1);
-        setParcel_1(_arr);
-        setOneWord_1(onewordAddress1);
-
+        if (_arr) {
+          setParcel_1(_arr);
+          setOneWord_1(onewordAddress1);
+          setIsDisabled_1(false);
+        } else {
+          // _arr에 값이 없는 경우에 대한 처리
+          setIsDisabled_1(true);
+        }
 
       }
     };
@@ -223,8 +228,14 @@ const AddressChange = () => {
         const _arr = arr[0].address.address_name;
         const onewordAddress2 = arr[0].address.region_3depth_name;
         console.log('kakao주소2', _arr);
-        setOneWord1(onewordAddress2);
-        setParcel_2(_arr);
+        if (_arr) {
+          setParcel_2(_arr);
+          setOneWord_1(onewordAddress2);
+          setIsDisabled_2(false);
+        } else {
+          // _arr에 값이 없는 경우에 대한 처리
+          setIsDisabled_2(true);
+        }
       }
     };
     geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
@@ -270,7 +281,7 @@ const AddressChange = () => {
                   <input type='text' placeholder={'첫번째 주소 이름을 적어주세요.       [ 예시:  집, 회사 ]'}
                          className={`${styles['input2' + (tab1 === 'curr' ? 'active' : '')]}`}
                          onChange={inputAddressName_1} />
-                  <button className={styles.registerBtn} onClick={() => {
+                  <button className={styles.registerBtn} disabled={isDisabled_1} onClick={() => {
                     postAddressData_1();
                     setCount1(count1 + 1);
                   }}>등록
@@ -289,7 +300,7 @@ const AddressChange = () => {
                   <input type='text' placeholder={'두번째 주소 이름을 적어주세요.       [ 예시:  집, 회사 ]'}
                          className={`${styles['input2_2' + (tab1 === 'curr' ? 'active' : '')]}`}
                          onChange={inputAddressName_2} />
-                  <button className={styles.registerBtn} onClick={() => {
+                  <button className={styles.registerBtn} disabled={isDisabled_2} onClick={() => {
                     postAddressData_2();
                     setCount2(count2 + 1);
                   }}>등록

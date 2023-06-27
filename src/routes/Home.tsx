@@ -224,7 +224,13 @@ const Home = () => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
+    console.log("눌리긴해?")
   }, [isOpenModal]);
+  if(store.userAddressInfoReducer.addressName1 === ""){
+    console.log("hello")
+    // setOpenModal(true);
+  }
+  console.log("isOpenModal",isOpenModal)
   return (
     <div className={styles.wrap}>
       <div className={styles.boxbox}>
@@ -251,7 +257,7 @@ const Home = () => {
 
                 {/*<button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>*/}
                 {
-                  store.userAddressInfoReducer.addressName1 == null ?
+                  store.userAddressInfoReducer.addressId1 == undefined ?
                     <button className={cx('startBtn')} onClick={() => onClickToggleModal()}>내 물건 올리기</button>
                     :
                     <button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>

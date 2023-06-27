@@ -130,7 +130,7 @@ const MyPage = () => {
   async function getOtherUserProfile() {
     try {
       const res = await Api.get(`/user/${paramsId}`);
-      console.log('다른유저 프로필asdfasdfasdf', res.data.address);
+      console.log('다른유저 주소', res.data.address);
       console.log('다른유저 프로필', res.data.userInfo.imageUrl);
       console.log('다른유저 닉네임', res.data.userInfo.nickname);
       if (res.data.address == '') {
@@ -176,6 +176,8 @@ const MyPage = () => {
     try {
       const res = await Api.get('/user');
       console.log('유저정보', res.data.id);
+      console.log('유저정보유저정보유저정보유저정보', res.data);
+
       setuserInfo((prevState) => {
         return {
           ...prevState, userId: res.data.userDetail.id,
@@ -312,7 +314,7 @@ const MyPage = () => {
           {/*<input className={styles.intro} placeholder={info.onelineIntro} onChange={inputIntro}></input>*/}
           {
             paramsId == info.id ?
-              <button className={styles.nickChangeBtn} onClick={logOut}>로그아웃</button>
+              <button className={styles.nickChangeBtn}  onClick={logOut}>로그아웃</button>
               :
               <></>
           }

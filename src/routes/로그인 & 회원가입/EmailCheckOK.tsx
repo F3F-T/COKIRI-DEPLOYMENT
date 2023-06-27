@@ -41,7 +41,7 @@ const EmailCheckOK = () => {
                 password: store.userInfoReducer.password
             }
             const res = await Api.post('/login',userInfo);
-            console.log(res)
+            console.log("res 확인좀",res);
             const accessToken = res.data;
             //jwt 토큰 redux에 넣기
             const jwtToken = accessToken.tokenInfo;
@@ -50,20 +50,20 @@ const EmailCheckOK = () => {
             dispatch(setToken(jwtToken));
             dispatch(setUserInfo(res.data.userInfo.userDetail))
             dispatch(setOnelineIntro(res.data.userInfo.userDetail.description))
-            if(res.data.userInfo.address[0]!=null){
-                dispatch(setUserAddressInfo1(res.data.userInfo.address[0].id))
-                dispatch(setAddressName1(res.data.userInfo.address[0].addressName))
-                dispatch(parcelAddress1(res.data.userInfo.address[0].postalAddress))
-                dispatch(setLat1(res.data.userInfo.address[0].latitude))
-                dispatch(setLng1(res.data.userInfo.address[0].longitude))
-            }
-            if(res.data.userInfo.address[1]!=null){
-                dispatch(setUserAddressInfo2(res.data.userInfo.address[1].id))
-                dispatch(setAddressName2(res.data.userInfo.address[1].addressName))
-                dispatch(parcelAddress2(res.data.userInfo.address[1].postalAddress))
-                dispatch(setLat2(res.data.userInfo.address[1].latitude))
-                dispatch(setLng2(res.data.userInfo.address[1].longitude))
-            }
+            // if(res.data.userInfo.address[0]!=null){
+            //     dispatch(setUserAddressInfo1(res.data.userInfo.address[0].id))
+            //     dispatch(setAddressName1(res.data.userInfo.address[0].addressName))
+            //     dispatch(parcelAddress1(res.data.userInfo.address[0].postalAddress))
+            //     dispatch(setLat1(res.data.userInfo.address[0].latitude))
+            //     dispatch(setLng1(res.data.userInfo.address[0].longitude))
+            // }
+            // if(res.data.userInfo.address[1]!=null){
+            //     dispatch(setUserAddressInfo2(res.data.userInfo.address[1].id))
+            //     dispatch(setAddressName2(res.data.userInfo.address[1].addressName))
+            //     dispatch(parcelAddress2(res.data.userInfo.address[1].postalAddress))
+            //     dispatch(setLat2(res.data.userInfo.address[1].latitude))
+            //     dispatch(setLng2(res.data.userInfo.address[1].longitude))
+            // }
 
             // dispatch(setAddress1(res.data.userInfo.address[0]))
             // dispatch(setAddress2(res.data.userInfo.address[1]))

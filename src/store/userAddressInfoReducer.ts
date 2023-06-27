@@ -25,20 +25,20 @@ interface UserAddressInfo {
 }
 
 const initialUserAddressInfoState : UserAddressInfo = {
-    addressId1:0,
-    addressName1:'',
-    parcelName1:'',
-    addressId2:0,
-    addressName2:'',
-    parcelName2:'',
+    addressId1:undefined,
+    addressName1:undefined,
+    parcelName1:undefined,
+    addressId2:undefined,
+    addressName2:undefined,
+    parcelName2:undefined,
     click1:0,
     click2:0,
-    latitude1:'',
-    longitude1:'',
-    latitude2:'',
-    longitude2:'',
-    oneWordAddress1:'',
-    oneWordAddress2:'',
+    latitude1:undefined,
+    longitude1:undefined,
+    latitude2:undefined,
+    longitude2:undefined,
+    oneWordAddress1:undefined,
+    oneWordAddress2:undefined,
 }
 
 //state는 이 상태의 현재 상태 값을 의미한다
