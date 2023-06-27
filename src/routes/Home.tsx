@@ -217,7 +217,7 @@ const Home = () => {
   const onClickStart = () => {
     navigate(`/login`);
   };
-
+  console.log("storestorestorestore",store);
   const onClickUpload = () => {
     navigate(`/upload`);
   };

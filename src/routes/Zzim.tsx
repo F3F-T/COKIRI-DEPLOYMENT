@@ -74,18 +74,14 @@ const MyPageZZIM = () =>  {
                 {/*    /!*<button className={`${styles["zzim"+(tab1 ==="next"? "" : "active")]}`} onClick={() =>{ setDealTab('next'); navigate('/mypage/zzim');}}>관심 상품</button>*!/*/}
                 {/*    <button className={styles.zzim} onClick={()=>{ setDealTab('next')}}>관심 상품</button>*/}
                 {/*</div>*/}
-
                         <div className={styles.container}>
                             {
                                 scrapList.reverse().map((SingleObject:Object)=>(
-                                    <Card  className={"forMypage"} postTitle={SingleObject['title']} like={SingleObject['scrapCount']} wishCategory={SingleObject['wishCategory']}
+                                    <Card  className={"forMypage"} thumbnail={SingleObject['thumbNail']} postTitle={SingleObject['title']} like={SingleObject['scrapCount']} wishCategory={SingleObject['wishCategory']}
                                            onClick={() => {onClickPost(SingleObject)}}/>
                                 ))
                             }
                         </div>
-
-
-
             </div>
         </>
     );
