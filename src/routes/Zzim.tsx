@@ -33,7 +33,6 @@ const MyPageZZIM = () => {
   const [tab1, setTab] = useState("curr");
   const [scrapList, setScrapList] = useState<PostType[]>(null);
   const { state } = useLocation(); //다른 유저꺼 받을 때
-
   function setDealTab(tab) {
     setTab(tab);
   }
@@ -52,6 +51,7 @@ const MyPageZZIM = () => {
 
   useEffect(() => {
     getMySrapPostList();
+    // console.log("찐이야 이게", scrapList.length);
   }, []);
   if (!scrapList) {
     return null;
@@ -62,20 +62,27 @@ const MyPageZZIM = () => {
   return (
     <>
       <div className={styles.MyPage}>
-        <div className={styles.container}>
-          {scrapList.reverse().map((SingleObject: Object) => (
-            <Card
-              className={"forMypage"}
-              thumbnail={SingleObject["thumbNail"]}
-              postTitle={SingleObject["title"]}
-              like={SingleObject["scrapCount"]}
-              wishCategory={SingleObject["wishCategory"]}
-              onClick={() => {
-                onClickPost(SingleObject);
-              }}
-            />
-          ))}
-        </div>
+        {scrapList.length === 0 ? (
+          <div className={styles.NoData}>
+            관심 상품이 비어 있어요. &nbsp; &nbsp;이웃의 게시글에 좋아요를
+            눌러보세요! 😋
+          </div>
+        ) : (
+          <div className={styles.container}>
+            {scrapList.reverse().map((SingleObject: Object) => (
+              <Card
+                className={"forMypage"}
+                thumbnail={SingleObject["thumbNail"]}
+                postTitle={SingleObject["title"]}
+                like={SingleObject["scrapCount"]}
+                wishCategory={SingleObject["wishCategory"]}
+                onClick={() => {
+                  onClickPost(SingleObject);
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

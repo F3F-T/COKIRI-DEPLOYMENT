@@ -48,6 +48,7 @@ const MyPage = () => {
       setPostList((prevState) => {
         return [...res.data.content];
       });
+      console.log("res2.....", res.data.content.length);
     } catch (err) {
       console.log(err);
       alert("내 게시글 불러오기 실패");
@@ -111,61 +112,58 @@ const MyPage = () => {
   return (
     <div className={styles.wrap}>
       <div className={styles.MyPage}>
-        {/*<div className={styles.menu}>*/}
-        {/*    <button className={`${styles["post"+(tab1 ==="curr"? "" : "active")]}`}  onClick={() =>{ setDealTab('curr'); navigate('/mypage');}}>게시글</button>*/}
-        {/*    <button className={styles.zzimactive} onClick={()=>{navigate('/mypage/zzim')}}>관심 상품</button>*/}
-        {/*</div>*/}
-        <div className={styles.container}>
-          {
-            // state == null ?
-            //   postList.reverse().map((SingleObject: Object) => (
-            //     <Card className={'forMypage'} postTitle={SingleObject['title']}
-            //           like={SingleObject['likeCount']} wishCategory={SingleObject['wishCategory']}
-            //           thumbnail={SingleObject['thumbNail']}
-            //           onClick={() => {
-            //             onClickPost(SingleObject);
-            //           }} />
-            //   ))
-            //
-            //
-            //   :
-
-            paramsId === info.id
-              ? postList.reverse().map((SingleObject: Object) => (
-                  <Card
-                    className={"forMypage"}
-                    postTitle={SingleObject["title"]}
-                    like={SingleObject["likeCount"]}
-                    wishCategory={SingleObject["wishCategory"]}
-                    thumbnail={SingleObject["thumbNail"]}
-                    onClick={() => {
-                      onClickPost(SingleObject);
-                    }}
-                  />
-                ))
-              : otherPost.reverse().map((SingleObject: Object) => (
-                  <Card
-                    className={"forMypage"}
-                    postTitle={SingleObject["title"]}
-                    like={SingleObject["likeCount"]}
-                    wishCategory={SingleObject["wishCategory"]}
-                    thumbnail={SingleObject["thumbNail"]}
-                    onClick={() => {
-                      onClickPost(SingleObject);
-                    }}
-                  />
-                ))
-
-            // postList.map((post)=>(
-            //     <Card  className={"forMypage"} postTitle={post['title']} like={20} wishCategory={postList['wishCategory']}
-            //            onClick={() => {onClickPost(post)}}/>
-            // ))
-            // https://velog.io/@op032/%EB%A0%8C%EB%8D%94%EB%A7%81-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%ED%95%B4%EA%B2%B0%ED%95%B4%EB%B3%B4%EC%9E%90-TypeError-Cannot-read-property-title-of-undefined
-          }
-        </div>
+        {paramsId === info.id ? (
+          <>
+            {postList.length === 0 ? (
+              <div className={styles.NoData}>
+                아직 올리신 게시글이 없으시네요. &nbsp; &nbsp;교환하고 싶은
+                물건을 올려보세요!😋
+              </div>
+            ) : (
+              <div className={styles.container}>
+                {paramsId === info.id &&
+                  postList.reverse().map((SingleObject: Object) => (
+                    <Card
+                      className={"forMypage"}
+                      postTitle={SingleObject["title"]}
+                      like={SingleObject["likeCount"]}
+                      wishCategory={SingleObject["wishCategory"]}
+                      thumbnail={SingleObject["thumbNail"]}
+                      onClick={() => {
+                        onClickPost(SingleObject);
+                      }}
+                    />
+                  ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            {otherPost.length === 0 ? (
+              <div className={styles.NoData}>
+                아직 올리신 게시글이 없으시네요. &nbsp; &nbsp;교환하고 싶은
+                물건을 올려보세요!😋
+              </div>
+            ) : (
+              <div className={styles.container}>
+                {paramsId !== info.id &&
+                  otherPost.reverse().map((SingleObject: Object) => (
+                    <Card
+                      className={"forMypage"}
+                      postTitle={SingleObject["title"]}
+                      like={SingleObject["likeCount"]}
+                      wishCategory={SingleObject["wishCategory"]}
+                      thumbnail={SingleObject["thumbNail"]}
+                      onClick={() => {
+                        onClickPost(SingleObject);
+                      }}
+                    />
+                  ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
-
-      {/*<Footer/>*/}
     </div>
   );
 };

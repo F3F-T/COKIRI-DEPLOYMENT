@@ -10,9 +10,9 @@
     width : 700px;
     height: 100%;
     text-align: left;
-    /*border: 1px solid red;*/
     margin : auto; /*가운데 정렬*/
     padding-bottom: 330px;
+
 }
 .profile{
     padding-top: 0rem;
@@ -172,4 +172,20 @@
 .nickChangeBtn{
     border-radius: 5px;
     border: none;
+}
+.NoData{
+    margin-top: 4rem;
+    font-weight: 600;
+    color: grey;
+    text-align: center;
+    font-size: 1rem;
+}
+.NoData2{
+    margin-top: 4rem;
+    width: 100%;
+    font-weight: 600;
+    color: grey;
+    border: 1px solid red;
+    text-align: center;
+    font-size: 1rem;
 }

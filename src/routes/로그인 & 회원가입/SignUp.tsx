@@ -614,7 +614,6 @@ const SignUp = () => {
             />
           ))}
       </div>
-      정
       <div className={styles.btnPlace}>
         <Button
           content={"회원가입"}

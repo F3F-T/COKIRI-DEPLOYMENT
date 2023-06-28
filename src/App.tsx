@@ -68,9 +68,6 @@ function App() {
                 <Route path=":id" element={<MyPage />} />
                 <Route path="zzim/:id" element={<Zzim />} />
               </Route>
-              {/*<Route path="/mypage" element={<MyPage/>}/ >*/}
-              {/*<Route path="/mypage/zzim" element={<Zzim/>} />*/}
-              {/*<Route path='/kokiritalk/:id' element={<KokiriTalk />} />*/}
               <Route path="/kokiritalk/:id" element={<KokiriTalk2 />} />
               <Route path="/post/:id" element={<PostDetail />} />
               <Route path="/upload" element={<PostUpload />} />
