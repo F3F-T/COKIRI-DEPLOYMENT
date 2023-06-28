@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../../styles/trade/PostContainer.module.css';
-import { useNavigate } from 'react-router-dom';
-import Card from '../tradeCard/Card';
-import { useSelector } from 'react-redux';
-import { Rootstate } from '../../index';
-import Api from '../../utils/api';
-import Loading from '../common/Loading';
-import { useInView } from 'react-intersection-observer';
-
+import React, { useEffect, useState } from "react";
+import styles from "../../styles/trade/PostContainer.module.css";
+import { useNavigate } from "react-router-dom";
+import Card from "../tradeCard/Card";
+import { useSelector } from "react-redux";
+import { Rootstate } from "../../index";
+import Api from "../../utils/api";
+import Loading from "../common/Loading";
+import { useInView } from "react-intersection-observer";
+import axios from "axios";
 
 interface PostType {
   id?: number;
@@ -36,12 +36,12 @@ interface Page {
   totalPages: number;
 }
 
-type categoryOption = 'wishCategory' | 'productCategory' | 'both'
-type filtertype = 'recent' | 'popular'
+type categoryOption = "wishCategory" | "productCategory" | "both";
+type filtertype = "recent" | "popular";
 
 interface postProps {
-  categoryOption?: categoryOption,
-  filterType?: filtertype,
+  categoryOption?: categoryOption;
+  filterType?: filtertype;
   searchOption?: string;
 }
 
@@ -52,10 +52,10 @@ const PostContainer = (postProps: postProps) => {
   const queryString = window.location.search;
   const [isLoading, setIsLoading] = useState(false);
 
-  let wishCategory = '';
-  let productCategory = '';
-  let minPrice = '';
-  let maxPrice = '';
+  let wishCategory = "";
+  let productCategory = "";
+  let minPrice = "";
+  let maxPrice = "";
   let sortType;
 
   // console.log(queryString);
@@ -65,14 +65,12 @@ const PostContainer = (postProps: postProps) => {
     return state.postDetailReducer;
   });
 
-
   const [postList, setPostList] = useState<PostType[]>(null);
   const [pageInfo, setPageInfo] = useState<Page>(null);
   //최신순, 인기도 순의 filtertype을 변경할때 비동기적으로 처리되는것을 예방
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(true);
   let page;
-
 
   //무한 스크롤 구현
   // const loadingRef = useRef();
@@ -81,19 +79,22 @@ const PostContainer = (postProps: postProps) => {
     threshold: 0,
   });
 
-
   async function getMorePostList() {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
-      console.log('여기냐');
+      console.log("여기냐");
       //query string 날리기
-      if (queryString.length < 1 || !queryString.includes('?tags=')) {
+      if (queryString.length < 1 || !queryString.includes("?tags=")) {
         const currentPage = pageInfo.number;
 
         if (!pageInfo.last) {
-          const res = await Api.get(`/post?productCategory=${productCategory}&wishCategory=${wishCategory}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sortType}&size=8&page=${currentPage + 1}`);
+          const res = await axios.get(
+            `https://f3f-cokiri.site/post?productCategory=${productCategory}&wishCategory=${wishCategory}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sortType}&size=8&page=${
+              currentPage + 1
+            }`
+          );
 
-          setPageInfo(prevState => {
+          setPageInfo((prevState) => {
             return {
               empty: res.data.empty,
               first: res.data.first,
@@ -107,19 +108,22 @@ const PostContainer = (postProps: postProps) => {
           });
           // console.log(res);
           // console.log(res.data)
-          setPostList(prevState => {
+          setPostList((prevState) => {
             return [...prevState, ...res.data.content];
           });
           setIsLoading(false);
         }
-      } else if (queryString.includes('?tags=')) {
+      } else if (queryString.includes("?tags=")) {
         const currentPage = pageInfo.number;
         if (!pageInfo.last) {
-
-          console.log('스크롤 맨 끝');
-          const res = await Api.get(`/post/tagSearch/${queryString}&sort=${sortType}&size=20&page=${currentPage + 1}`);
+          console.log("스크롤 맨 끝");
+          const res = await axios.get(
+            `https://f3f-cokiri.site/post/tagSearch/${queryString}&sort=${sortType}&size=20&page=${
+              currentPage + 1
+            }`
+          );
           // console.log(res)
-          setPageInfo(prevState => {
+          setPageInfo((prevState) => {
             return {
               empty: res.data.empty,
               first: res.data.first,
@@ -132,7 +136,7 @@ const PostContainer = (postProps: postProps) => {
             };
           });
 
-          setPostList(prevState => {
+          setPostList((prevState) => {
             return [...prevState, ...res.data.content];
           });
           setIsLoading(false);
@@ -140,7 +144,7 @@ const PostContainer = (postProps: postProps) => {
       }
     } catch (err) {
       console.log(err);
-      alert('get 실패');
+      alert("get 실패");
     }
     setIsLoading(false);
   }
@@ -153,25 +157,23 @@ const PostContainer = (postProps: postProps) => {
     }
   }, [inView]);
 
-
   // console.log(page);
 
-
-  if (postProps.categoryOption === 'wishCategory') {
+  if (postProps.categoryOption === "wishCategory") {
     wishCategory = store.categoryReducer.category;
-  } else if (postProps.categoryOption === 'productCategory') {
+  } else if (postProps.categoryOption === "productCategory") {
     productCategory = store.categoryReducer.category;
-  } else if (postProps.categoryOption === 'both') {
+  } else if (postProps.categoryOption === "both") {
     wishCategory = store.categoryReducer.category;
     productCategory = store.categoryReducer.category;
   }
 
-  if (wishCategory === '전체') {
-    wishCategory = '';
+  if (wishCategory === "전체") {
+    wishCategory = "";
   }
 
-  if (productCategory === '전체') {
-    productCategory = '';
+  if (productCategory === "전체") {
+    productCategory = "";
     // console.log(store.priceReducer.maxPrice);
     // console.log(store.priceReducer.minPrice);
   }
@@ -184,32 +186,34 @@ const PostContainer = (postProps: postProps) => {
     maxPrice = store.priceReducer.maxPrice;
   }
   //최신순 필터링
-  if (postProps.filterType === 'recent') {
+  if (postProps.filterType === "recent") {
     sortType = `createDate,DESC`;
   }
   //인기순 필터링 : scrap 순 -> messageRoom 순 -> post ID 역순(최신순)
-  else if (postProps.filterType === 'popular') {
+  else if (postProps.filterType === "popular") {
     sortType = `scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC`;
   }
 
   //홈 화면에서 인기매물로 들어갔을때
-  if (queryString == '?sort=popular') {
+  if (queryString == "?sort=popular") {
     sortType = `scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC`;
   }
 
   async function getPostList() {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
-      setPostList(prevState => {
+      setPostList((prevState) => {
         return null;
       });
       console.log(postList);
       // console.log(sortType);
       //query string 날리기
-      if (queryString.length < 1 || !queryString.includes('?tags=')) {
-        const res = await Api.get(`/post?productCategory=${productCategory}&wishCategory=${wishCategory}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sortType}&size=8&page=0`);
+      if (queryString.length < 1 || !queryString.includes("?tags=")) {
+        const res = await axios.get(
+          `https://f3f-cokiri.site/post?productCategory=${productCategory}&wishCategory=${wishCategory}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sortType}&size=8&page=0`
+        );
         // console.log(res);
-        setPageInfo(prevState => {
+        setPageInfo((prevState) => {
           return {
             empty: res.data.empty,
             first: res.data.first,
@@ -222,14 +226,16 @@ const PostContainer = (postProps: postProps) => {
           };
         });
         // console.log(res.data)
-        setPostList(prevState => {
+        setPostList((prevState) => {
           return [...res.data.content];
         });
         setLoading2(false);
-      } else if (queryString.includes('?tags=')) {
-        const res = await Api.get(`/post/tagSearch/${queryString}&sort=${sortType}&size=10&page=0`);
+      } else if (queryString.includes("?tags=")) {
+        const res = await axios.get(
+          `https://f3f-cokiri.site/post/tagSearch/${queryString}&sort=${sortType}&size=10&page=0`
+        );
         // console.log(res)
-        setPageInfo(prevState => {
+        setPageInfo((prevState) => {
           return {
             empty: res.data.empty,
             first: res.data.first,
@@ -242,7 +248,7 @@ const PostContainer = (postProps: postProps) => {
           };
         });
 
-        setPostList(prevState => {
+        setPostList((prevState) => {
           return [...res.data.content];
         });
         setLoading2(false);
@@ -250,7 +256,7 @@ const PostContainer = (postProps: postProps) => {
       console.log(postList);
     } catch (err) {
       console.log(err);
-      alert('get 실패');
+      alert("get 실패");
     }
   }
 
@@ -280,29 +286,25 @@ const PostContainer = (postProps: postProps) => {
 
   useEffect(() => {
     console.log(postProps.filterType);
-    setLoading2(prevState => true);
+    setLoading2((prevState) => true);
     getPostList();
-
   }, [postProps.filterType, store.refreshReducer.postChange]);
-
 
   /**
    * 중요) postList를 async로 받긴 하지만 받아오는 시간 전까지는 postList가 null이기 때문에 밑에있는 render 에서 postList.map 이 null을 접근하게 돼서 오류가 발생하고, 켜지지 않는다
    * 이렇게 예외처리를 꼭 해야한다.
    */
-//
+  //
 
   // console.log(store.refreshReducer.postChange);
   if (!postList) {
     return <Loading />;
   }
 
-
   // if(!pageInfo)
   // {
   //     return null;
   // }
-
 
   const onClickPost = (post) => {
     console.log(post);
@@ -317,19 +319,25 @@ const PostContainer = (postProps: postProps) => {
           <h1>loading</h1>
         ) : (
           postList.map((post, index) => (
-            <Card key={index} className={'forTrade'} like={post.scrapCount} postTitle={post.title}
-                  postContent={post.content} wishCategory={post.wishCategory} price={post.price}
-                  messageRoomCount={post.messageRoomCount}
-                  onClick={() => {
-                    onClickPost(post);
-                  }} thumbnail={post.thumbnail} />
-          )))
-        }
+            <Card
+              key={index}
+              className={"forTrade"}
+              like={post.scrapCount}
+              postTitle={post.title}
+              postContent={post.content}
+              wishCategory={post.wishCategory}
+              price={post.price}
+              messageRoomCount={post.messageRoomCount}
+              onClick={() => {
+                onClickPost(post);
+              }}
+              thumbnail={post.thumbnail}
+            />
+          ))
+        )}
       </div>
       <div className={styles.loadingDiv} ref={ref}>
-        {
-          pageInfo.last ? ' ' : <Loading />
-        }
+        {pageInfo.last ? " " : <Loading />}
       </div>
     </div>
   );

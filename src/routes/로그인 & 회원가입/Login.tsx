@@ -247,6 +247,7 @@ const Login = () => {
           {/*@ts-ignore*/}
           <Button
             className={"white"}
+            /*@ts-ignore*/
             onClick={googleLogin}
             content={"구글 로그인"}
           />

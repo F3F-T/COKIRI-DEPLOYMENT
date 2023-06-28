@@ -16,6 +16,7 @@ import HomePostCardSwiper from "../component/common/HomePostCardSwiper";
 import RoundImageSwiper from "../component/common/RoundImageSwiper";
 import classNames from "classnames/bind";
 import Modal from "./로그인 & 회원가입/ModalList";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -57,8 +58,8 @@ const HomeMulmulTrade = () => {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
       //query string 날리기
-      const res = await Api.get(
-        `/post?&sort=scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC&size=10&page=0`
+      const res = await axios.get(
+        `https://f3f-cokiri.site/post?&sort=scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC&size=10&page=0`
       );
       setPostList((prevState) => {
         return [...res.data.content];
@@ -102,8 +103,8 @@ const HomeKirikiriTrade = () => {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
       //query string 날리기
-      const res = await Api.get(
-        `/post?productCategory=${category}&wishCategory=${category}&sort=scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC&size=10&page=0`
+      const res = await axios.get(
+        `https://f3f-cokiri.site/post?productCategory=${category}&wishCategory=${category}&sort=scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC&size=10&page=0`
       );
       setPostList((prevState) => {
         return [...res.data.content];

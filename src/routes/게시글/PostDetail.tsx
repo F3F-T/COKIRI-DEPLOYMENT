@@ -24,6 +24,7 @@ import {
 import ImageSwiper from "../../component/common/ImageSwiper";
 import Select from "react-select";
 import Modal from "../로그인 & 회원가입/ModalList";
+import axios from "axios";
 
 const PostDetail = () => {
   let existOrNot: boolean = false;
@@ -155,7 +156,7 @@ const PostDetail = () => {
   async function getPost() {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
-      const res = await Api.get(`/post/${postId}`);
+      const res = await axios.get(`https://f3f-cokiri.site/post/${postId}`);
 
       setPost((prevState) => {
         return { ...prevState, ...res.data };
@@ -179,7 +180,9 @@ const PostDetail = () => {
   async function getComments() {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
-      const res = await Api.get(`/post/${postId}/comments`);
+      const res = await axios.get(
+        `https://f3f-cokiri.site/post/${postId}/comments`
+      );
 
       console.log(res);
       setCommentList((prevState) => {
