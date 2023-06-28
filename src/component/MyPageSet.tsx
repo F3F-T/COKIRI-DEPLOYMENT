@@ -49,7 +49,6 @@ const MyPage = () => {
   const [userInfo, setuserInfo] = useState<UserInfo>(null);
 
   const params = useParams();
-  // console.log(params)
   let paramsId = parseInt(params.id);
 
   const { state } = useLocation(); //다른 유저꺼 받을 때
@@ -403,9 +402,6 @@ const MyPage = () => {
             <button className={styles.post}>게시글</button>
           </>
         )}
-        {/*<button className={`${styles["post"+(tab1 ==="curr"? "" : "active")]}`}  onClick={() =>{ setDealTab('curr'); navigate('/mypage');}}>게시글</button>*/}
-        {/*<button className={styles.zzimactive} onClick={()=>{navigate('/mypage/zzim')}}>관심 상품</button>*/}
-        {/*여기는 철웅이꺼 불러온거 띄워야지*/}
       </div>
 
       <Outlet />

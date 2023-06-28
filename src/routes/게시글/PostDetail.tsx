@@ -155,7 +155,6 @@ const PostDetail = () => {
   async function getPost() {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
-      console.log("getPost 요청");
       const res = await Api.get(`/post/${postId}`);
 
       setPost((prevState) => {
@@ -165,7 +164,6 @@ const PostDetail = () => {
       setScrapCountInReact((prevState) => res.data.scrapCount);
 
       if (res.data.tradeStatus === "TRADABLE") {
-        console.log("교환가능");
         setTradeState({ selectedTradeStatus: { name: "거래가능" } });
       } else if (res.data.tradeStatus === "TRADING") {
         setTradeState({ selectedTradeStatus: { name: "예약중" } });
