@@ -1,36 +1,35 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from '../styles/home/Home.module.scss';
-import newfood from '../img/newfood.png';
-import newbook from '../img/newbook.png';
-import newticket from '../img/newticket.png';
-import newclothes from '../img/newclothes.png';
-import newservice from '../img/newservice.png';
-import newbaby from '../img/newbaby.png';
-import newexercise from '../img/newexercise.png';
-import newfurniture from '../img/newfurniture.png';
-import { useSelector } from 'react-redux';
-import { Rootstate } from '../index';
-import Api from '../utils/api';
-import HomePostCardSwiper from '../component/common/HomePostCardSwiper';
-import RoundImageSwiper from '../component/common/RoundImageSwiper';
-import classNames from 'classnames/bind';
-import Modal from './로그인 & 회원가입/ModalList';
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../styles/home/Home.module.scss";
+import newfood from "../img/newfood.png";
+import newbook from "../img/newbook.png";
+import newticket from "../img/newticket.png";
+import newclothes from "../img/newclothes.png";
+import newservice from "../img/newservice.png";
+import newbaby from "../img/newbaby.png";
+import newexercise from "../img/newexercise.png";
+import newfurniture from "../img/newfurniture.png";
+import { useSelector } from "react-redux";
+import { Rootstate } from "../index";
+import Api from "../utils/api";
+import HomePostCardSwiper from "../component/common/HomePostCardSwiper";
+import RoundImageSwiper from "../component/common/RoundImageSwiper";
+import classNames from "classnames/bind";
+import Modal from "./로그인 & 회원가입/ModalList";
 
 const cx = classNames.bind(styles);
 
 //모르는 태그가 너무 많아 하다가 멈춤
 //허락 맡고 다시 진행 예정
 
-
 const directionButtons = (direction) => {
   return (
     <span
-      aria-hidden='true'
-      className={direction === 'Next' ? 'button-next' : 'button-prev'}
+      aria-hidden="true"
+      className={direction === "Next" ? "button-next" : "button-prev"}
     >
-        {direction}
-      </span>
+      {direction}
+    </span>
   );
 };
 
@@ -58,17 +57,15 @@ const HomeMulmulTrade = () => {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
       //query string 날리기
-      const res = await Api.get(`/post?&sort=scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC&size=10&page=0`);
-      console.log(res);
-
-      console.log(res.data);
-      setPostList(prevState => {
+      const res = await Api.get(
+        `/post?&sort=scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC&size=10&page=0`
+      );
+      setPostList((prevState) => {
         return [...res.data.content];
       });
-
     } catch (err) {
       console.log(err);
-      alert('get 실패');
+      alert("get 실패");
     }
   }
 
@@ -80,9 +77,6 @@ const HomeMulmulTrade = () => {
     getPostList();
   }, []);
 
-  console.log(postList);
-
-
   return (
     <section className={styles.mulmulTrade}>
       <div className={styles.tradeTop}>
@@ -90,17 +84,15 @@ const HomeMulmulTrade = () => {
         <li onClick={onClickMore}>더보기</li>
       </div>
       <div className={styles.mulmulCardView}>
-        <div className={'homeSwiper'}>
+        <div className={"homeSwiper"}>
           <HomePostCardSwiper postList={postList} />
         </div>
       </div>
-
     </section>
   );
 };
 
 const HomeKirikiriTrade = () => {
-
   const [postList, setPostList] = useState<PostType[]>(null);
   const navigate = useNavigate();
   const store = useSelector((state: Rootstate) => state);
@@ -110,17 +102,15 @@ const HomeKirikiriTrade = () => {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
       //query string 날리기
-      const res = await Api.get(`/post?productCategory=${category}&wishCategory=${category}&sort=scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC&size=10&page=0`);
-      console.log(res);
-
-      console.log(res.data);
-      setPostList(prevState => {
+      const res = await Api.get(
+        `/post?productCategory=${category}&wishCategory=${category}&sort=scrapPosts.size,DESC&messageRooms.size,DESC&sort=id,ASC&size=10&page=0`
+      );
+      setPostList((prevState) => {
         return [...res.data.content];
       });
-
     } catch (err) {
       console.log(err);
-      alert('get 실패');
+      alert("get 실패");
     }
   }
 
@@ -132,32 +122,42 @@ const HomeKirikiriTrade = () => {
     getPostList();
   }, [store.categoryReducer.category]);
 
-  console.log(postList);
-
   return (
     <>
       <section className={styles.kirikiriTrade}>
         <hr className={styles.hrFull} />
         <div className={styles.kiriTop}>
-          <h2>다른 카테고리 뿐만 아니라 같은 카테고리끼리도 교환할 수 있어요 👇 </h2>
+          <h2>
+            다른 카테고리 뿐만 아니라 같은 카테고리끼리도 교환할 수 있어요 👇{" "}
+          </h2>
         </div>
 
         <div className={styles.kirikiriCatagoryCardView}>
-          <div className={'roundImageSwiper'}>
+          <div className={"roundImageSwiper"}>
             <RoundImageSwiper
-              imageList={[newbook, newfood, newticket, newclothes, newservice, newbaby, newexercise, newfurniture]} />
+              imageList={[
+                newbook,
+                newfood,
+                newticket,
+                newclothes,
+                newservice,
+                newbaby,
+                newexercise,
+                newfurniture,
+              ]}
+            />
           </div>
         </div>
         <div className={styles.mulmulCardView}>
-          <li className={styles.kiriLi} onClick={onClickMore}>더보기</li>
-          <div className={'homeSwiper'}>
+          <li className={styles.kiriLi} onClick={onClickMore}>
+            더보기
+          </li>
+          <div className={"homeSwiper"}>
             <HomePostCardSwiper postList={postList} />
           </div>
         </div>
-
       </section>
     </>
-
   );
 };
 
@@ -179,7 +179,7 @@ const HomeStart = () => {
     <div className={styles.boxbox}>
       {isOpenModal && (
         <Modal onClickToggleModal={onClickToggleModal}>
-          <embed type='text/html' width='800' height='608' />
+          <embed type="text/html" width="800" height="608" />
         </Modal>
       )}
       <section className={styles.start}>
@@ -190,24 +190,27 @@ const HomeStart = () => {
             끼리끼리 교환하며 새로운 가치를 만나보세요.
           </div>
           <div className={styles.startRight2}>
-            {
-              store.userInfoReducer.id == null ?
-                <button className={cx('startBtn')} onClick={onClickStart}>시작하기</button> :
-                <></>
-
-            }
+            {store.userInfoReducer.id == null ? (
+              <button className={cx("startBtn")} onClick={onClickStart}>
+                시작하기
+              </button>
+            ) : (
+              <></>
+            )}
 
             {/*<button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>*/}
-            <button className={cx('startBtn')} onClick={() => onClickToggleModal()}>내 물건 올리기</button>
+            <button
+              className={cx("startBtn")}
+              onClick={() => onClickToggleModal()}
+            >
+              내 물건 올리기
+            </button>
 
             {/*<Button className={"lightblue"} content={"시작하기"} onClick={onClickStart} color={"black"} hover={true} size={"medium"}/>*/}
             {/*<Button className={"lightblue"} content={"내 물건 올리기"} onClick={onClickUpload} color={"black"} hover={true} size={"medium"}/>*/}
-
           </div>
         </div>
-
       </section>
-
     </div>
   );
 };
@@ -217,7 +220,6 @@ const Home = () => {
   const onClickStart = () => {
     navigate(`/login`);
   };
-  console.log("storestorestorestore",store);
   const onClickUpload = () => {
     navigate(`/upload`);
   };
@@ -226,16 +228,12 @@ const Home = () => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
-  // console.log(store)
-  console.log(store)
-
-
   return (
     <div className={styles.wrap}>
       <div className={styles.boxbox}>
         {isOpenModal && (
           <Modal onClickToggleModal={onClickToggleModal}>
-            <embed type='text/html' width='800' height='608' />
+            <embed type="text/html" width="800" height="608" />
           </Modal>
         )}
         <div className={styles.home}>
@@ -247,37 +245,39 @@ const Home = () => {
                 끼리끼리 교환하며 새로운 가치를 만들어가요.
               </div>
               <div className={styles.startRight2}>
-                {
-                  store.userInfoReducer.id === undefined ||
-                  store.userInfoReducer.id === 0 ?
-                    <button className={cx('startBtn')} onClick={onClickStart}>시작하기</button> :
-                    <></>
-
-                }
+                {store.userInfoReducer.id === undefined ||
+                store.userInfoReducer.id === 0 ? (
+                  <button className={cx("startBtn")} onClick={onClickStart}>
+                    시작하기
+                  </button>
+                ) : (
+                  <></>
+                )}
 
                 {/*<button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>*/}
-                {
-                  store.userAddressInfoReducer.addressName1 == null ?
-                    <button className={cx('startBtn')} onClick={() => onClickToggleModal()}>내 물건 올리기</button>
-                    :
-                    <button className={cx('startBtn')} onClick={onClickUpload}>내 물건 올리기</button>
-
-
-                }
+                {store.userAddressInfoReducer.addressName1 == null ? (
+                  <button
+                    className={cx("startBtn")}
+                    onClick={() => onClickToggleModal()}
+                  >
+                    내 물건 올리기
+                  </button>
+                ) : (
+                  <button className={cx("startBtn")} onClick={onClickUpload}>
+                    내 물건 올리기
+                  </button>
+                )}
 
                 {/*<Button className={"lightblue"} content={"시작하기"} onClick={onClickStart} color={"black"} hover={true} size={"medium"}/>*/}
                 {/*<Button className={"lightblue"} content={"내 물건 올리기"} onClick={onClickUpload} color={"black"} hover={true} size={"medium"}/>*/}
-
               </div>
             </div>
-
           </section>
           <HomeMulmulTrade />
           <HomeKirikiriTrade />
         </div>
       </div>
       {/*<Footer/>*/}
-
     </div>
   );
 };

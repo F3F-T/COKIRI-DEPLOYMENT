@@ -155,7 +155,6 @@ const PostDetail = () => {
   async function getPost() {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
-      console.log("getPost 요청");
       const res = await Api.get(`/post/${postId}`);
 
       setPost((prevState) => {
@@ -165,7 +164,6 @@ const PostDetail = () => {
       setScrapCountInReact((prevState) => res.data.scrapCount);
 
       if (res.data.tradeStatus === "TRADABLE") {
-        console.log("교환가능");
         setTradeState({ selectedTradeStatus: { name: "거래가능" } });
       } else if (res.data.tradeStatus === "TRADING") {
         setTradeState({ selectedTradeStatus: { name: "예약중" } });
@@ -248,13 +246,8 @@ const PostDetail = () => {
   async function getMessageRoom2() {
     try {
       const res = await Api.get("/user/messageRooms");
-      // console.log("김동준전체조회",res.data)
       const res2 = await Api.get(`/user/${info.id}/totalMessageRooms`);
-      console.log("김윤정전체조회", res2.data.length);
       if (res2.data.length == 0) {
-        console.log("이 유저의 방이 아예 없을때 첫 메세지룸일때");
-        console.log("postId", post.id);
-        console.log("info.id", info.id);
         const post_buyerId2 = {
           postId: post.id,
           buyerId: info.id,
@@ -263,40 +256,19 @@ const PostDetail = () => {
           `/post/${post.id}/messageRooms`,
           post_buyerId2
         );
-        console.log("룸생성정보 in postdetail", res4);
         dispatch(setOpponetNick(res4.data.sellerNickName));
         await dispatch(setMessageRoomId(res4.data.id));
         await dispatch(setSellerId(res4.data.sellerId));
         dispatch(setPostId(res4.data.postId));
       } else {
-        console.log("방을 한개 이상 가지고 있을때 ");
         for (let i = 0; i < res2.data.length; i++) {
-          // if(res2.data[i].sellerDelStatus == false && res2.data[i].buyerDelStatus == false  ) {
-          console.log("postDetailSeller", res2.data[i].sellerDelStatus);
-          console.log("postDetailbuyer", res2.data[i].buyerDelStatus);
           if (res2.data[i].buyerId === info.id) {
-            console.log("현재유저가 구매하는 사람일때1");
-
             if (res2.data[i].postId === post.id) {
-              console.log(
-                "현재유저가 구매하는 사람일때2, 이 게시글로 대화 나눈게 이미 있는거지",
-                res2.data[i].postId
-              );
-              console.log("이미 방이 존재합니다.", post.id);
               dispatch(setMessageRoomId(res2.data[i].id));
               roomClassification = 1; //
               break;
             } else {
-              console.log("한번 들여다보자", res2.data);
-              console.log(
-                "현재 유저가 구매하는 사람에 있는데, 이 게시글로는 대화나눈게 없어, 방을 새로 파는거지",
-                res2.data[i].postId
-              );
-              console.log("서로 같지만 방은 생성되어야하는거잖아", post.id);
-              console.log("서로 같지만 방은 생성되어야하는거잖아2", post.title);
-
               try {
-                console.log("들어옴?4");
                 const post_buyerId1 = {
                   postId: post.id,
                   buyerId: info.id,
@@ -310,19 +282,16 @@ const PostDetail = () => {
                 await dispatch(setMessageRoomId(res4.data.id));
                 await dispatch(setSellerId(res4.data.sellerId));
                 dispatch(setPostId(res4.data.postId));
-                alert("메세지룸 추가 성공 in postdetail222");
+                alert("메세지룸 추가 성공");
 
                 break;
               } catch (err) {
-                console.log("들어옴?6");
                 console.log(err);
-                alert("메세지룸 추가 실패 in postdetail222");
+                alert("메세지룸 추가 실패");
               }
             }
           } else {
-            console.log("현재유저가 구매자가 아님1");
             try {
-              console.log("들어옴?5");
               const post_buyerId1 = {
                 postId: post.id,
                 buyerId: info.id,
@@ -338,7 +307,6 @@ const PostDetail = () => {
               dispatch(setPostId(res4.data.postId));
               break;
             } catch (err) {
-              console.log("들어옴?5");
               console.log(err);
               alert("메세지룸 추가 실패 in postdetail");
             }
@@ -350,13 +318,6 @@ const PostDetail = () => {
       alert("메세지룸 조회 실패 in postdetail");
     }
   }
-
-  //여기까지 함민혁코드
-  // const onClickPost = (post) => {
-  //     console.log(post)
-  //     console.log(post.id)
-  //     navigate(`/post/${post.id}`)
-  // }
 
   useEffect(() => {
     getPost();
@@ -388,7 +349,6 @@ const PostDetail = () => {
       }
       setScrapSaved((prevState) => !prevState);
     } else {
-      console.log("이미 클릭 한번 함 ");
     }
     console.log(accessableCount);
 
@@ -411,24 +371,16 @@ const PostDetail = () => {
   };
 
   const UploadComment = async () => {
-    console.log(accessableCount);
     accessableCount = accessableCount - 1;
-    console.log(accessableCount);
     try {
       if (accessableCount >= 0) {
-        console.log("접근");
         const res = await Api.post(`/post/${postId}/comments`, writeComment);
-        console.log(writeComment);
-        console.log(res);
         dispatch(changeCommentRefreshState());
         setCommentText("");
         alert("댓글 작성 성공");
       } else {
-        console.log(accessableCount);
-        console.log("이미 클릭한번함");
       }
       accessableCount = accessableCount + 1;
-      console.log(accessableCount);
     } catch (err) {
       console.log(err);
       alert("댓글 작성 실패");
@@ -487,10 +439,8 @@ const PostDetail = () => {
   //게시글 작성자 판단
 
   if (post.userInfoWithAddress.userDetail.id === store.userInfoReducer.id) {
-    // console.log("게시글 작성자임")
     isAuthor = true;
   } else {
-    // console.log("게시글 작성자가 아님")
     isAuthor = false;
   }
 
@@ -515,15 +465,10 @@ const PostDetail = () => {
   }, []);
 
   const onClickUserPage = () => {
-    console.log("클릭");
     navigate(`/mypage/${post.userInfoWithAddress.userDetail.id}`, {
       state: post.userInfoWithAddress.userDetail.id,
     });
   };
-  console.log(
-    "post.authorNickname",
-    post.userInfoWithAddress.userDetail.nickname
-  );
 
   return (
     <div className={styles.Box}>
