@@ -79,8 +79,8 @@ const MyPage = () => {
     }
   }, [state]);
   const [newNick, setNewNick] = useState(info.nickname);
-  const [postNum, setNum] = useState("");
-  const [otherpostNum, setotherNum] = useState("");
+  const [postNum, setNum] = useState<number>(0);
+  const [otherpostNum, setotherNum] = useState<number>(0);
   const [tradedNum, setTradedNum] = useState();
   const [menuNum, setMenuNum] = useState<number>(1);
 
@@ -127,9 +127,8 @@ const MyPage = () => {
       } else {
         const otherAddress2_3 = res.data.address[0].postalAddress;
         const arr1 = otherAddress2_3.split(" ");
-        const arr2 = arr1[1] + " " + arr1[2];
         setOtherUser({
-          otherUserAddress: arr2,
+          otherUserAddress: arr1[2],
           otherUserProfile: res.data.userInfo.imageUrl,
           otherUserNick: res.data.userInfo.nickname,
         });
@@ -298,7 +297,8 @@ const MyPage = () => {
               )}
             </div>
             <div className={styles.i1}>
-              <p>상품 거래</p> <p className={styles.tradeNum}>{tradedNum}</p>
+              <p>상품 거래</p>
+              <p className={styles.tradeNum}>{tradedNum}</p>
             </div>
           </div>
           {
