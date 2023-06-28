@@ -1,25 +1,8 @@
 import styles from '../../styles/loginAndSignup/ProfileModal.module.css'
 import React, {PropsWithChildren, useState} from "react";
-import TextInput from "../../component/common/TextInput";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Rootstate} from "../../index";
-import {useNavigate} from "react-router-dom";
-import useGeoLocation from "../../hooks/useGeolocation";
-import Api from "../../utils/api";
-import {
-    parcelAddress1,
-    parcelAddress2, resetaddress1, resetaddress2,
-    setAddressName1, setAddressName2,
-    setUserAddressInfo1,
-    setUserAddressInfo2, setClick1, setClick2, setLat2, setLng2,setLat1, setLng1
-} from "../../store/userAddressInfoReducer";
-import TalkList from "../../component/talk/TalkList";
-import timeConvert from "../../utils/timeConvert";
-import TalkCard from "../../component/talk/TalkCard";
-import Message from "../../component/talk/Message";
-import {HiPencil} from "react-icons/hi";
 import AddressChange from "./Settings/AddressChange";
-import SignUp from "./SignUp";
 import NickNameChange from "./Settings/NickNameChange";
 import PasswordChange from "./Settings/PasswordChange";
 import UserDelete from "./Settings/UserDelete";
@@ -72,10 +55,10 @@ function SettingModal({onClickToggleModal, children,}: PropsWithChildren<ModalDe
             <div className={styles.box2}>
 
                 <div className={styles.left}>
-                    <button className={styles.left_1} onClick={()=>{setSelectList(1)}}>닉네임 변경</button>
+                    <button className={selectList === 1 ? `${styles.left_1_active}` : `${styles.left_1}`}
+                                    onClick={()=>{setSelectList(1)}}>닉네임 변경</button>
                     <button className={styles.left_1} onClick={()=>{setSelectList(2)}}>비밀번호 변경</button>
                     <button className={styles.left_1} onClick={()=>{setSelectList(3)}}>주소 변경</button>
-                    {/*<button className={styles.left_1} onClick={()=>{setSelectList(4)}}>로그아웃</button>*/}
                     <button className={styles.left_1} onClick={()=>{setSelectList(5)}}>계정 탈퇴</button>
                     <div className={styles.left_2}>
                         <div className={styles.left_21}>COKIRI</div>

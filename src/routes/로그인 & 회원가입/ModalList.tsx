@@ -16,6 +16,7 @@ function Modal({onClickToggleModal, children,}: PropsWithChildren<ModalDefaultTy
     //////////모달//////////
     //주소 추가
     const navigate = useNavigate();
+    const store = useSelector((state: Rootstate) => state);
 
 
     const [key,setKey] = useState<number>(null)
@@ -37,7 +38,16 @@ function Modal({onClickToggleModal, children,}: PropsWithChildren<ModalDefaultTy
                 <div className={styles.box2_1}>
                     <p className={styles.box2_2}>동네 인증을 먼저 진행해주세요!</p>
                     <div className={styles.box2_3}>
-                        <button className={styles.btn1} onClick={()=>navigate(`/mypage/${info.id}`)}>동네 인증하기</button>
+                        {
+                            store.userInfoReducer.id !== 0 ?
+                                <button className={styles.btn1} onClick={()=>navigate(`/mypage/${info.id}`)}>동네 인증하기</button>
+                                :
+
+                                <button className={styles.btn1} onClick={()=>{
+                                    alert("로그인 후에 가능한 작업입니다");
+                                    navigate('/login')}}>동네 인증하기</button>
+
+                        }
                         <button className={styles.btn2} onClick={(e: React.MouseEvent) => {
                             e.preventDefault();
                             if (onClickToggleModal) {
