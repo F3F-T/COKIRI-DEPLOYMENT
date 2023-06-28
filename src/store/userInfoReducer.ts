@@ -78,7 +78,7 @@ const userInfoSlice = createSlice({
             return initialUserInfoState
         },
         logoutUserInfo(state){
-            state.id = undefined;
+            state.id = 0;
             state.email =undefined;
             state.userName = undefined;
             state.birthDate = undefined;
