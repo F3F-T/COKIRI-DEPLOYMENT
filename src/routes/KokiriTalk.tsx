@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styles from '../styles/talk/kokiriTalk.module.scss';
-import TalkList from '../component/talk/TalkList';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Message from '../component/talk/Message';
-import TalkCard from '../component/talk/TalkCard';
-import { HiPencil } from 'react-icons/hi';
-import Api from '../utils/api';
-import { useDispatch, useSelector } from 'react-redux';
-import { Rootstate } from '../index';
+import React, { useEffect, useRef, useState } from "react";
+import styles from "../styles/talk/kokiriTalk.module.scss";
+import TalkList from "../component/talk/TalkList";
+import { useLocation, useNavigate } from "react-router-dom";
+import Message from "../component/talk/Message";
+import TalkCard from "../component/talk/TalkCard";
+import { HiPencil } from "react-icons/hi";
+import Api from "../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { Rootstate } from "../index";
 
 import {
   resetTalkCard,
@@ -19,27 +19,27 @@ import {
   setTradeCategory,
   setTradeStatus,
   setWishCategory,
-} from '../store/talkCardReducer';
-import timeConvert from '../utils/timeConvert';
+} from "../store/talkCardReducer";
+import timeConvert from "../utils/timeConvert";
 
 interface contentInfo {
-  id: number,
-  senderNickname: string,
-  receiverNickname: string,
-  content: string,
-  senderId: string,
-  receiverId: string,
-  messageRoomId: number
+  id: number;
+  senderNickname: string;
+  receiverNickname: string;
+  content: string;
+  senderId: string;
+  receiverId: string;
+  messageRoomId: number;
 }
 
 interface contentInfo2 {
-  id: number,
-  senderNickname: string,
-  receiverNickname: string,
-  content: string,
-  senderId: string,
-  receiverId: string,
-  messageRoomId: number
+  id: number;
+  senderNickname: string;
+  receiverNickname: string;
+  content: string;
+  senderId: string;
+  receiverId: string;
+  messageRoomId: number;
 }
 
 // const usePreventLeave = () => {
@@ -52,7 +52,6 @@ interface contentInfo2 {
 //         window.removeEventListener("beforeunload", listener); // beforeunload 이벤트 제거
 //     return { enablePrevent, disablePrevent }; // 두 함수를 return
 // };
-
 
 const KokiriTalk = () => {
   const navigate = useNavigate();
@@ -82,11 +81,10 @@ const KokiriTalk = () => {
   const [, updateState] = useState();
 
   // const [count,setCount]=useState(0)
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   // console.log("초기시작으로 false를 해놧는데", talkCard.delStatus)
   //페이지 벗어남 감지
   const [shouldConfirm, setShouldConfirm] = useState(false);
-
 
   // getMessageRoom()
   //의성
@@ -110,15 +108,13 @@ const KokiriTalk = () => {
   useEffect(() => {
     if (talkCard.id != undefined) {
       // console.log("실행된거니??",talkCard.id)
-      setCount(prevState => prevState + 1);
+      setCount((prevState) => prevState + 1);
       setKey(talkCard.id);
       getMessageContent(talkCard.id);
     }
   }, [talkCard.id]);
 
-
   useEffect(() => {
-
     getMessageRoom();
   }, [count, del]);
 
@@ -128,7 +124,6 @@ const KokiriTalk = () => {
     return setInput;
   };
   const createMessageRoom = async () => {
-
     //얘는 게시글통해서 들어왔을때만 그 톡방이 있는지 확인하면됨
     if (state === 0) {
       await sendMessage(talkCard.id);
@@ -136,15 +131,14 @@ const KokiriTalk = () => {
       // console.log("제발좀ㅋㅋ",talkCard.id)
       await sendMessage(talkCard.id);
     }
-
   };
 
   async function getMessageRoom() {
     try {
       // console.log('삭제 그 후 2');
-      console.log('getMessageRooms');
+      console.log("getMessageRooms");
 
-      const res = await Api.get('/user/messageRooms');
+      const res = await Api.get("/user/messageRooms");
 
       // console.log('count가 플러스가 되니까 이리로 넘어오겠지', count);
       const res2 = await Api.get(`/user/${info.id}/totalMessageRooms`);
@@ -157,9 +151,7 @@ const KokiriTalk = () => {
       //
       // console.log('메세지룸 조회', res.data.content);
       // console.log('메세지룸 조회2', res2.data);
-      for (let i = 0; i < res2.data.length; i++) {
-
-      }
+      for (let i = 0; i < res2.data.length; i++) {}
       if (talkCard.id === undefined) {
         // console.log('처음 켰을때', talkCard);
         // const res3 = await Api.get(`/post/${res2.data[0].postId}`)
@@ -198,7 +190,6 @@ const KokiriTalk = () => {
               getMessageContent(res2.data[i].id);
               break;
             }
-
           }
         }
         //title,wishCategory,productCategory,tradeStatus
@@ -213,9 +204,7 @@ const KokiriTalk = () => {
           if (res2.data[i].buyerDelStatus == false) {
             // console.log('테스트입니다1', res2.data[i].sellerNickName);
             // console.log('테스트입니다2', res2.data[i].buyerNickName);
-
           }
-
         } else {
           if (res2.data[i].sellerDelStatus == false) {
             //원래대로 출력
@@ -230,11 +219,9 @@ const KokiriTalk = () => {
       });
       // console.log('roomlist좀 보자', res.data.content);
       // console.log('roomlist좀 보자김윤정', res2.data);
-
-
     } catch (err) {
       console.log(err);
-      alert('메세지룸 조회 실패 in kokiritalk');
+      alert("메세지룸 조회 실패 in kokiritalk");
     }
   }
 
@@ -268,24 +255,24 @@ const KokiriTalk = () => {
       }
       // setInput("")
       const res = await Api.post(`/messageRooms/${loading}`, messageInfo1);
-      console.log('메세지 전송', res.data);
+      console.log("메세지 전송", res.data);
     } catch (err) {
       console.log(err);
-      alert('메세지전송  실패');
+      alert("메세지전송  실패");
     }
   }
 
   async function getMessageContent(loading) {
     try {
       const res = await Api.get(`/messageRooms/${loading}`);
-      console.log('메세지룸 내용조회', res.data);
+      console.log("메세지룸 내용조회", res.data);
       setContentInfo(() => {
         return [...res.data];
       });
       return res.data;
     } catch (err) {
       console.log(err);
-      alert('메세지룸 내용 조회 실패 in kokiritalk');
+      alert("메세지룸 내용 조회 실패 in kokiritalk");
     }
   }
 
@@ -293,10 +280,9 @@ const KokiriTalk = () => {
   async function deleteRoom2() {
     if (talkCard.id != null) {
       try {
-
         const res2 = await Api.get(`/messageRooms/${talkCard.id}`);
-        console.log('메세지룸 내용조회 in delete', res2.data.length);
-        console.log('talkcard.id', talkCard.id);
+        console.log("메세지룸 내용조회 in delete", res2.data.length);
+        console.log("talkcard.id", talkCard.id);
         if (res2.data.length == 0) {
           try {
             const deleteInfo = {
@@ -304,35 +290,32 @@ const KokiriTalk = () => {
                 id: talkCard.id,
               },
             };
-            const res = await Api.delete('/messageRooms', deleteInfo);
+            const res = await Api.delete("/messageRooms", deleteInfo);
             // console.log("메세지룸 내용조회", res.data)
-            alert('메세지룸 내용 영구삭제 ');
+            alert("메세지룸 내용 영구삭제 ");
             await dispatch(resetTalkCard());
           } catch (err) {
             console.log(err);
-            alert('메세지룸 내용 영구삭제 실패');
+            alert("메세지룸 내용 영구삭제 실패");
           }
-          setDel(prevState => prevState + 1);
+          setDel((prevState) => prevState + 1);
         }
-
       } catch (err) {
         console.log(err);
-        alert('메세지룸 내용 조회 실패 in delete');
+        alert("메세지룸 내용 조회 실패 in delete");
       }
     }
-
   }
 
-
   async function deleteRoom() {
-    console.log('메세지룸 내용조회 in delete22222');
+    console.log("메세지룸 내용조회 in delete22222");
 
     try {
-      console.log('메세지룸 내용조회 in delete333333');
+      console.log("메세지룸 내용조회 in delete333333");
 
       const res2 = await Api.get(`/messageRooms/${talkCard.id}`);
-      console.log('메세지룸 내용조회 in delete', res2.data.length);
-      console.log('talkcard.id', talkCard.id);
+      console.log("메세지룸 내용조회 in delete", res2.data.length);
+      console.log("talkcard.id", talkCard.id);
 
       if (res2.data.length == 0) {
         try {
@@ -341,14 +324,14 @@ const KokiriTalk = () => {
               id: talkCard.id,
             },
           };
-          const res = await Api.delete('/messageRooms', deleteInfo);
+          const res = await Api.delete("/messageRooms", deleteInfo);
 
           // console.log("메세지룸 내용조회", res.data)
-          alert('메세지룸 내용 영구삭제 ');
+          alert("메세지룸 내용 영구삭제 ");
           await dispatch(resetTalkCard());
         } catch (err) {
           console.log(err);
-          alert('메세지룸 내용 영구삭제 실패');
+          alert("메세지룸 내용 영구삭제 실패");
         }
       } else {
         try {
@@ -359,26 +342,36 @@ const KokiriTalk = () => {
               postId: talkCard.postId,
             },
           };
-          const res = await Api.delete(`/messageRooms/${talkCard.id}`, deleteInfo);
+          const res = await Api.delete(
+            `/messageRooms/${talkCard.id}`,
+            deleteInfo
+          );
 
           // console.log("메세지룸 내용조회", res.data)
-          alert('메세지룸 내용 삭제  in kokiritalk');
+          alert("메세지룸 내용 삭제  in kokiritalk");
 
           await dispatch(resetTalkCard());
         } catch (err) {
           console.log(err);
-          alert('메세지룸 내용 삭제 실패 in kokiritalk');
+          alert("메세지룸 내용 삭제 실패 in kokiritalk");
         }
-
-
       }
-      setDel(prevState => prevState + 1);
+      setDel((prevState) => prevState + 1);
     } catch (err) {
       console.log(err);
-      alert('메세지룸 내용 조회 실패 in delete');
+      alert("메세지룸 내용 조회 실패 in delete");
     }
-
   }
+
+  //엔터키 누르면 댓글 작성
+  const handleKeyPress = (event) => {
+    console.log(event.key);
+    if (event.key === "Enter") {
+      createMessageRoom();
+      setCount((prevState) => prevState + 1);
+      setInput("");
+    }
+  };
 
   // if(!talkCard.delStatus){
   //     return null
@@ -386,7 +379,11 @@ const KokiriTalk = () => {
   function scrollToBottom() {
     // console.log("내려가라고 시발라마 내려가라고 내려가라고")
     // @ts-ignore
-    scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    scrollRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
   }
 
   if (!contentInfo) {
@@ -397,7 +394,7 @@ const KokiriTalk = () => {
   }
 
   console.log(talkCard);
-  console.log('state확인좀할게', state);
+  console.log("state확인좀할게", state);
   return (
     <div className={styles.wrap}>
       <div className={styles.kokiritalk}>
@@ -405,77 +402,95 @@ const KokiriTalk = () => {
           <div className={styles.leftHeader}>코끼리톡</div>
           <div className={styles.left2}>
             <div className={styles.talkContainer}>
-              {roomList.map((SingleObject: object) => (
-
-                SingleObject['messageRoomId'] === talkCard.id ?//눌렸냐
-                  SingleObject['buyerNickname'] === info.nickname ?
+              {roomList.map((SingleObject: object) =>
+                SingleObject["messageRoomId"] === talkCard.id ? ( //눌렸냐
+                  SingleObject["buyerNickname"] === info.nickname ? (
                     // <>눌렸는데 구매자</>
-                    SingleObject['buyerDelStatus'] === false ?
-
+                    SingleObject["buyerDelStatus"] === false ? (
                       <div className={styles.wrapper}>
-                        <TalkList keys={SingleObject['messageRoomId']}
-                                  partner={SingleObject['sellerNickname']}
-                                  lastContent={SingleObject['lastMsg']}
-                                  date={timeConvert(SingleObject['createdDate'])}
-                                  onClick={onClickTotalTalkList(SingleObject['messageRoomId'])}
-                                  counts={count} />
+                        <TalkList
+                          keys={SingleObject["messageRoomId"]}
+                          partner={SingleObject["sellerNickname"]}
+                          lastContent={SingleObject["lastMsg"]}
+                          date={timeConvert(SingleObject["createdDate"])}
+                          onClick={onClickTotalTalkList(
+                            SingleObject["messageRoomId"]
+                          )}
+                          counts={count}
+                        />
                       </div>
-                      :
+                    ) : (
                       <></>
-                    :
-                    // <>눌렸는데 판매자</>
-                    SingleObject['sellerDelStatus'] === false ?
-
-                      <div className={styles.wrapper}>
-                        <TalkList keys={SingleObject['messageRoomId']}
-                                  partner={SingleObject['buyerNickname']}
-                                  lastContent={SingleObject['lastMsg']}
-                                  date={timeConvert(SingleObject['createdDate'])}
-                                  onClick={onClickTotalTalkList(SingleObject['messageRoomId'])}
-                                  counts={count} />
-                      </div>
-                      :
-                      <></>
-                  :
-                  // <>안눌림</>
-                  SingleObject['buyerNickname'] === info.nickname ?
-                    SingleObject['buyerDelStatus'] === false ?
-                      <TalkList keys={SingleObject['messageRoomId']}
-                                partner={SingleObject['sellerNickname']}
-                                lastContent={SingleObject['lastMsg']}
-                                date={timeConvert(SingleObject['createdDate'])}
-                                onClick={onClickTotalTalkList(SingleObject['messageRoomId'])}
-                                counts={count} />
-                      :
-                      <></>
-                    :
-                    // <>눌렸는데 판매자</>
-                    SingleObject['sellerDelStatus'] === false ?
-
-                      <TalkList keys={SingleObject['messageRoomId']} partner={SingleObject['buyerNickname']}
-                                lastContent={SingleObject['lastMsg']}
-                                date={timeConvert(SingleObject['createdDate'])}
-                                onClick={onClickTotalTalkList(SingleObject['messageRoomId'])}
-                                counts={count} />
-                      :
-                      <></>
-
-              ))}
+                    )
+                  ) : // <>눌렸는데 판매자</>
+                  SingleObject["sellerDelStatus"] === false ? (
+                    <div className={styles.wrapper}>
+                      <TalkList
+                        keys={SingleObject["messageRoomId"]}
+                        partner={SingleObject["buyerNickname"]}
+                        lastContent={SingleObject["lastMsg"]}
+                        date={timeConvert(SingleObject["createdDate"])}
+                        onClick={onClickTotalTalkList(
+                          SingleObject["messageRoomId"]
+                        )}
+                        counts={count}
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )
+                ) : // <>안눌림</>
+                SingleObject["buyerNickname"] === info.nickname ? (
+                  SingleObject["buyerDelStatus"] === false ? (
+                    <TalkList
+                      keys={SingleObject["messageRoomId"]}
+                      partner={SingleObject["sellerNickname"]}
+                      lastContent={SingleObject["lastMsg"]}
+                      date={timeConvert(SingleObject["createdDate"])}
+                      onClick={onClickTotalTalkList(
+                        SingleObject["messageRoomId"]
+                      )}
+                      counts={count}
+                    />
+                  ) : (
+                    <></>
+                  )
+                ) : // <>눌렸는데 판매자</>
+                SingleObject["sellerDelStatus"] === false ? (
+                  <TalkList
+                    keys={SingleObject["messageRoomId"]}
+                    partner={SingleObject["buyerNickname"]}
+                    lastContent={SingleObject["lastMsg"]}
+                    date={timeConvert(SingleObject["createdDate"])}
+                    onClick={onClickTotalTalkList(
+                      SingleObject["messageRoomId"]
+                    )}
+                    counts={count}
+                  />
+                ) : (
+                  <></>
+                )
+              )}
             </div>
           </div>
         </div>
-
 
         <div className={styles.right}>
           <div className={styles.right_headerBox}>
             <div className={styles.right_header}>
               <div className={styles.right_header1}>
-                <div className={styles.right_header1_1}><TalkCard keys={key} /></div>
+                <div className={styles.right_header1_1}>
+                  <TalkCard keys={key} />
+                </div>
               </div>
               <div className={styles.right_header2}>
-                <button className={styles.sideBtn} onClick={() => {
-                  deleteRoom();
-                }}>삭제
+                <button
+                  className={styles.sideBtn}
+                  onClick={() => {
+                    deleteRoom();
+                  }}
+                >
+                  삭제
                 </button>
                 <p> | </p>
                 <button className={styles.sideBtn}>차단</button>
@@ -483,22 +498,31 @@ const KokiriTalk = () => {
                 <button className={styles.sideBtn}>신고</button>
               </div>
             </div>
-            <div className={styles.right_header1_2}>{talkCard.opponentNickname}님과의 쪽지방입니다.</div>
+            <div className={styles.right_header1_2}>
+              {talkCard.opponentNickname}님과의 쪽지방입니다.
+            </div>
           </div>
           님
-          <div className={styles.talkContainer2}>님
-            {key === null ?
-              <></> : <Message keys={key} counts={count} />
-            }
+          <div className={styles.talkContainer2}>
+            님{key === null ? <></> : <Message keys={key} counts={count} />}
           </div>
           <div ref={scrollRef} className={styles.writeComments}>
-            <input type={'text'} className={styles.writeInput} placeholder={'쪽지를 보내세요'} value={input}
-                   onChange={onChangeMessage} />
-            <HiPencil className={styles.pencilIcon} onClick={() => {
-              createMessageRoom();
-              setCount(prevState => prevState + 1);
-              setInput('');
-            }} />
+            <input
+              type={"text"}
+              className={styles.writeInput}
+              placeholder={"쪽지를 보내세요"}
+              value={input}
+              onChange={onChangeMessage}
+              onKeyPress={handleKeyPress}
+            />
+            <HiPencil
+              className={styles.pencilIcon}
+              onClick={() => {
+                createMessageRoom();
+                setCount((prevState) => prevState + 1);
+                setInput("");
+              }}
+            />
           </div>
         </div>
       </div>
@@ -506,6 +530,5 @@ const KokiriTalk = () => {
     </div>
   );
 };
-
 
 export default KokiriTalk;
