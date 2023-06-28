@@ -27,6 +27,7 @@
 }
 
 .postTopProfileImg {
+    cursor: pointer;
     width: 4rem;
     height: 4rem;
     border-radius: 30px;
@@ -40,6 +41,7 @@
 }
 
 .postTopNickname {
+    cursor: pointer;
     margin-top: 0.7rem;
     font-size: 1rem;
     font-weight: bold;
@@ -296,6 +298,7 @@
 }
 
 .ProfileActionList li {
+    cursor: pointer;
     float: left;
     font-size: 0.7rem;
     margin-right: 0.3rem;

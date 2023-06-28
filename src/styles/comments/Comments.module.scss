@@ -26,12 +26,12 @@
   }
 
   .ProfileActionList {
-
     margin-left: auto;
     list-style: none;
   }
 
   .ProfileActionList li {
+    cursor: pointer;
     float: left;
     font-size: 0.5rem;
     margin-right: 0.5rem;
