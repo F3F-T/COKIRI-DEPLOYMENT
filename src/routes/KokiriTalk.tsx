@@ -75,8 +75,14 @@ const KokiriTalk = () => {
   const [roomList, setRoomList] = useState(null);
   const [roomList2, setRoomList2] = useState(null);
   const [deleteBtn, setDeleteBtn] = useState(false);
+  // console.log('톡카드id톡카드id톡카드id톡카드id톡카드id', talkCard.id);
+
+  // const { enablePrevent, disablePrevent } = usePreventLeave();
   const [, updateState] = useState();
+
+  // const [count,setCount]=useState(0)
   const [input, setInput] = useState("");
+  // console.log("초기시작으로 false를 해놧는데", talkCard.delStatus)
   //페이지 벗어남 감지
   const [shouldConfirm, setShouldConfirm] = useState(false);
 
@@ -97,8 +103,11 @@ const KokiriTalk = () => {
     };
   };
 
+  // console.log("talkCard??",talkCard.id)
+
   useEffect(() => {
     if (talkCard.id != undefined) {
+      // console.log("실행된거니??",talkCard.id)
       setCount((prevState) => prevState + 1);
       setKey(talkCard.id);
       getMessageContent(talkCard.id);
@@ -119,14 +128,19 @@ const KokiriTalk = () => {
     if (state === 0) {
       await sendMessage(talkCard.id);
     } else {
+      // console.log("제발좀ㅋㅋ",talkCard.id)
       await sendMessage(talkCard.id);
     }
   };
 
   async function getMessageRoom() {
     try {
+      // console.log('삭제 그 후 2');
+      console.log("getMessageRooms");
+
       const res = await Api.get("/user/messageRooms");
 
+      // console.log('count가 플러스가 되니까 이리로 넘어오겠지', count);
       const res2 = await Api.get(`/user/${info.id}/totalMessageRooms`);
       //
       /**
@@ -135,14 +149,19 @@ const KokiriTalk = () => {
        * (조회)채팅방 쪽지 전체 조회를 사용하는게 좋음.
        */
       //
-
+      // console.log('메세지룸 조회', res.data.content);
+      // console.log('메세지룸 조회2', res2.data);
       for (let i = 0; i < res2.data.length; i++) {}
       if (talkCard.id === undefined) {
+        // console.log('처음 켰을때', talkCard);
+        // const res3 = await Api.get(`/post/${res2.data[0].postId}`)
         for (let i = 0; i < res2.data.length; i++) {
+          // console.log('count가 플러스가 되니까 이리로 넘어오겠지2', count);
           // 현재 유저가 buyer인지 seller인지 판단
           if (info.id === res2.data[i].buyerId) {
             if (res2.data[i].buyerDelStatus == false) {
               //원래대로
+              // console.log('buyerdelStatus가 false인 애들 중에 첫번째꺼를 앞에 띄워야지');
               const res3 = await Api.get(`/post/${res2.data[i].postId}`);
               dispatch(setTradeStatus(res3.data.tradeStatus));
               dispatch(setTradeCategory(res3.data.tradeCategory));
@@ -158,6 +177,7 @@ const KokiriTalk = () => {
           } else {
             if (res2.data[i].sellerDelStatus == false) {
               //원래대로 출력
+              // console.log('SellerdelStatus가 false인 애들 중에 첫번째꺼를 앞에 띄워야지');
               const res3 = await Api.get(`/post/${res2.data[i].postId}`);
               dispatch(setTradeStatus(res3.data.tradeStatus));
               dispatch(setTradeCategory(res3.data.tradeCategory));
@@ -174,21 +194,31 @@ const KokiriTalk = () => {
         }
         //title,wishCategory,productCategory,tradeStatus
       } else {
+        // console.log('여기로온다면', talkCard);
       }
 
       for (let i = 0; i < res2.data.length; i++) {
+        // console.log('테스트입니다3', res.data.content[i]);
         // 현재 유저가 buyer인지 seller인지 판단
         if (info.id === res2.data[i].buyerId) {
           if (res2.data[i].buyerDelStatus == false) {
+            // console.log('테스트입니다1', res2.data[i].sellerNickName);
+            // console.log('테스트입니다2', res2.data[i].buyerNickName);
           }
         } else {
           if (res2.data[i].sellerDelStatus == false) {
+            //원래대로 출력
           }
         }
       }
+
+      // console.log('여기는 처음킨게 아닐때 dispatch에 리스트 첫번째꺼를 넣어줄 필요가 없음');
+
       setRoomList(() => {
         return [...res.data.content];
       });
+      // console.log('roomlist좀 보자', res.data.content);
+      // console.log('roomlist좀 보자김윤정', res2.data);
     } catch (err) {
       console.log(err);
       alert("메세지룸 조회 실패 in kokiritalk");
@@ -214,6 +244,7 @@ const KokiriTalk = () => {
           messageRoomId: loading,
         };
       } else {
+        // console.log('메세지보내는사람이 사는 사람');
         messageInfo1 = {
           content: input,
           senderId: info.id,
@@ -224,6 +255,7 @@ const KokiriTalk = () => {
       }
       // setInput("")
       const res = await Api.post(`/messageRooms/${loading}`, messageInfo1);
+      console.log("메세지 전송", res.data);
     } catch (err) {
       console.log(err);
       alert("메세지전송  실패");
@@ -233,6 +265,7 @@ const KokiriTalk = () => {
   async function getMessageContent(loading) {
     try {
       const res = await Api.get(`/messageRooms/${loading}`);
+      console.log("메세지룸 내용조회", res.data);
       setContentInfo(() => {
         return [...res.data];
       });
@@ -248,6 +281,8 @@ const KokiriTalk = () => {
     if (talkCard.id != null) {
       try {
         const res2 = await Api.get(`/messageRooms/${talkCard.id}`);
+        console.log("메세지룸 내용조회 in delete", res2.data.length);
+        console.log("talkcard.id", talkCard.id);
         if (res2.data.length == 0) {
           try {
             const deleteInfo = {
@@ -273,8 +308,14 @@ const KokiriTalk = () => {
   }
 
   async function deleteRoom() {
+    console.log("메세지룸 내용조회 in delete22222");
+
     try {
+      console.log("메세지룸 내용조회 in delete333333");
+
       const res2 = await Api.get(`/messageRooms/${talkCard.id}`);
+      console.log("메세지룸 내용조회 in delete", res2.data.length);
+      console.log("talkcard.id", talkCard.id);
 
       if (res2.data.length == 0) {
         try {
@@ -322,6 +363,16 @@ const KokiriTalk = () => {
     }
   }
 
+  //엔터키 누르면 댓글 작성
+  const handleKeyPress = (event) => {
+    console.log(event.key);
+    if (event.key === "Enter") {
+      createMessageRoom();
+      setCount((prevState) => prevState + 1);
+      setInput("");
+    }
+  };
+
   // if(!talkCard.delStatus){
   //     return null
   // }
@@ -341,6 +392,9 @@ const KokiriTalk = () => {
   if (!roomList) {
     return null;
   }
+
+  console.log(talkCard);
+  console.log("state확인좀할게", state);
   return (
     <div className={styles.wrap}>
       <div className={styles.kokiritalk}>
@@ -459,6 +513,7 @@ const KokiriTalk = () => {
               placeholder={"쪽지를 보내세요"}
               value={input}
               onChange={onChangeMessage}
+              onKeyPress={handleKeyPress}
             />
             <HiPencil
               className={styles.pencilIcon}
