@@ -36,8 +36,6 @@ const MyPage = () => {
 
   function setDealTab(tab) {
     setTab(tab);
-    console.log(tab1);
-    // return tab
   }
 
   const store = useSelector((state: Rootstate) => state);
@@ -52,7 +50,6 @@ const MyPage = () => {
   let paramsId = parseInt(params.id);
 
   const { state } = useLocation(); //다른 유저꺼 받을 때
-  console.log("statestatestate", state);
 
   useEffect(() => {
     if (paramsId != info.id) {
@@ -121,9 +118,6 @@ const MyPage = () => {
   async function getOtherUserProfile() {
     try {
       const res = await Api.get(`/user/${paramsId}`);
-      console.log("다른유저 주소", res.data.address);
-      console.log("다른유저 프로필", res.data.userInfo.imageUrl);
-      console.log("다른유저 닉네임", res.data.userInfo.nickname);
       if (res.data.address == "") {
         setOtherUser({
           otherUserAddress: "아직 동네 인증을 안한 ",
@@ -151,7 +145,7 @@ const MyPage = () => {
   async function getOtherUserPostList() {
     try {
       const res = await Api.get(`/post/user/${paramsId}`);
-      console.log("내 게시글rdd", Object.keys(res.data.content).length);
+      console.log("내 게시글", Object.keys(res.data.content).length);
       // @ts-ignore
       setotherNum(res.data.size);
     } catch (err) {
@@ -164,9 +158,6 @@ const MyPage = () => {
   async function readNickName() {
     try {
       const res = await Api.get("/user");
-      console.log("유저정보", res.data.id);
-      console.log("유저정보유저정보유저정보유저정보", res.data);
-
       setuserInfo((prevState) => {
         return {
           ...prevState,
@@ -178,8 +169,6 @@ const MyPage = () => {
       alert("실패??????");
     }
   }
-
-  // console.log("value",value);
 
   async function getMyPostList() {
     //interceptor를 사용한 방식 (header에 token값 전달)
@@ -205,14 +194,12 @@ const MyPage = () => {
     e.preventDefault();
     if (e.target.files) {
       const uploadFile = e.target.files[0];
-      console.log("uploadFile", uploadFile);
       const formData = new FormData();
       formData.append("imageFiles", uploadFile);
       const res = await axios.post(
         "https://f3f-cokiri.site/auth/image/profileImage",
         formData
       );
-      console.log("리턴 데이터 ", res.data.imageUrls[0]);
       dispatch(setUserProfile(res.data.imageUrls[0]));
       const mbody = {
         userId: info.id,

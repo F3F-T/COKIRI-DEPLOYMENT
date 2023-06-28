@@ -25,15 +25,12 @@ function SettingModal({
   num,
 }: PropsWithChildren<ModalDefaultType>) {
   const { state } = useLocation();
-  console.log("state확인좀 하자ㅏㅏㅏㅏㅏㅏ", state);
-  console.log("num 확인 하자ㅏㅏㅏㅏㅏㅏ", num);
 
   const addressR = useSelector((state: Rootstate) => {
     return state.userAddressInfoReducer;
   });
 
   const [selectList, setSelectList] = useState(1);
-  console.log("주소1이 잘 들어갔나", addressR);
   useEffect(() => {
     if (state && state.num) {
       setSelectList(state.num);

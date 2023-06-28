@@ -36,7 +36,6 @@ const MyPageZZIM = () => {
 
   function setDealTab(tab) {
     setTab(tab);
-    console.log(tab1);
   }
   const navigate = useNavigate();
   async function getMySrapPostList() {
