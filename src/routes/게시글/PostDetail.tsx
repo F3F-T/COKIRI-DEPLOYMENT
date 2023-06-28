@@ -439,11 +439,12 @@ const PostDetail = () => {
         },
       };
       //삭제는 일반적인 axios 방식과 달리 message body를 config로 넘겨주어야한다.
-      const res = await Api.delete(`/post/${postId}`, config);
+
       if (window.confirm('정말 게시글을 삭제하시겠어요?')) {
+        const res = await Api.delete(`/post/${postId}`, config);
         alert('게시글 삭제 성공');
+        navigate(`/mulmultrade`);
       }
-      navigate(`/mulmultrade`);
     } catch (err) {
       console.log(err);
       alert('게시글 삭제 실패');

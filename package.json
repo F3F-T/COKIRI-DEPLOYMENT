@@ -41,6 +41,7 @@
     "react-spinners": "^0.13.8",
     "react-tagify": "^0.1.4",
     "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "sass": "^1.57.1",
     "styled-components": "^5.3.9",

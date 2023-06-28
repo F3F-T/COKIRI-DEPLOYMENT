@@ -195,6 +195,7 @@ const MyPage = () => {
   async function getMyPostList() {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
+      console.log(store)
       const res = await Api.get('/user/posts?');
       const array = res.data.content.slice();
       const result = array.filter(item => {
