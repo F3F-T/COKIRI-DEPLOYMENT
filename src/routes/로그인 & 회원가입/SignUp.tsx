@@ -375,7 +375,7 @@ const SignUp = () => {
     } catch (err) {
       console.log(err);
       alert('이메일 전송 실패.');
-
+//
     }
   }
 
