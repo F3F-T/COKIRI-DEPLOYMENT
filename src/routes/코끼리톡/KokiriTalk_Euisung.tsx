@@ -383,6 +383,7 @@ const KokiriTalk2 = () => {
     setInitialRender((prevState) => false);
     try {
       if (isClicked != -1) {
+        //
         //새로운 방이 생성되지 않은경우
         let messageInfo = {
           content: input,
