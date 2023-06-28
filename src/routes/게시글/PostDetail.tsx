@@ -435,6 +435,14 @@ const PostDetail = () => {
     }
   }; //
 
+  //엔터키 누르면 댓글 작성
+  const handleKeyPress = (event) => {
+    console.log(event.key);
+    if (event.key === "Enter") {
+      UploadComment(); // 엔터 키를 누르면 uploadComment 함수 호출
+    }
+  };
+
   const deletePost = async () => {
     try {
       const config = {
@@ -726,6 +734,7 @@ const PostDetail = () => {
             placeholder={"댓글을 작성하세요"}
             onChange={onChangeComment}
             value={commentText}
+            onKeyPress={handleKeyPress}
           />
           <HiPencil className={styles.pencilIcon} onClick={UploadComment} />
         </div>

@@ -73,6 +73,14 @@ const PrimaryComment = (commentInfo: CommentProps) => {
     isCommentAuthor = false;
   }
 
+  //엔터키 누르면 댓글 작성
+  const handleKeyPress = (event) => {
+    console.log(event.key);
+    if (event.key === "Enter") {
+      UploadComment(); // 엔터 키를 누르면 uploadComment 함수 호출
+    }
+  };
+
   const UploadComment = async () => {
     accessableCount = accessableCount - 1;
     try {
@@ -171,6 +179,7 @@ const PrimaryComment = (commentInfo: CommentProps) => {
             placeholder={"대댓글을 입력하세요"}
             onChange={onChangeComment}
             value={reCommentText}
+            onKeyPress={handleKeyPress}
           />
           <HiPencil className={styles.pencilIcon} onClick={UploadComment} />
         </div>
