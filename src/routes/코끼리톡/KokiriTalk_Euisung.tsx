@@ -92,6 +92,7 @@ const KokiriTalk2 = () => {
   const { state } = useLocation();
   const scrollRef = useRef();
   const store = useSelector((state: Rootstate) => state);
+  // console.log(state);
   //왼쪽 roomList를 담는 state
   const [roomList, setRoomList] = useState<MessageRoomInfo[]>();
   //왼쪽 roomList를 클릭헀을때 오른쪽 밑에 필요한 단일 메시지룸의 쪽지들의 정보들이 담김
@@ -113,6 +114,7 @@ const KokiriTalk2 = () => {
   const [initialRender, setInitialRender] = useState(true);
   const [talkCardChanged, setTalkCardChanged] = useState(0);
   const [firstTimeTalk, setFirstTimeTalk] = useState(false);
+  console.log(state);
 
   //최초 게시글 정보 불러오기
   //오른쪽 위 post 정보를 불러옴
@@ -208,6 +210,7 @@ const KokiriTalk2 = () => {
     try {
       const res = await Api.get("/user/messageRooms");
       roomList_original = res.data.content;
+      console.log(roomList_original);
       if (roomList_original.length < 1) {
         setFirstTimeTalk(true);
       }
@@ -351,6 +354,7 @@ const KokiriTalk2 = () => {
       setTalkCardChanged((prevState) => prevState + 1);
       //TODO: 의성) talkCard의 정보들이 roomList가 변할때마다 postId로 오른쪽 위의 게시글정보를 띄워준다. 동준이한테 postId 뿐만아니라 여기에 필요한 post DTO를 다 넘겨달라고 하면 좋을듯 아니면 post api를 사용해야함
       //TODO: 원래는 setKey로 식별후에 talkCard component에서 api를 호출해서 문제가 되었다. 그냥 부모에서 정보를 다 갖고 자식에선 api를 호출하지 않는 방식으로 구현함
+      // console.log(contentInfo);
       event.preventDefault();
     };
   };
@@ -379,6 +383,7 @@ const KokiriTalk2 = () => {
     setInitialRender((prevState) => false);
     try {
       if (isClicked != -1) {
+        //
         //새로운 방이 생성되지 않은경우
         let messageInfo = {
           content: input,
@@ -408,6 +413,7 @@ const KokiriTalk2 = () => {
           `/messageRooms/${newMessageRoomInfo.id}`,
           messageInfo
         );
+        console.log("메세지 전송2", res.data);
       }
 
       setCount((prevState) => prevState + 1);
@@ -460,6 +466,16 @@ const KokiriTalk2 = () => {
       return null;
     }
   }
+
+  const handleKeyPress = (event) => {
+    console.log(event.key);
+    if (event.key === "Enter") {
+      onClickPencil();
+    }
+  };
+
+  console.log(roomList);
+  console.log(talkCardInfo);
 
   return (
     <div className={styles.wrap}>
@@ -574,6 +590,7 @@ const KokiriTalk2 = () => {
               placeholder={"쪽지를 보내세요"}
               value={input}
               onChange={onChangeMessage}
+              onKeyPress={handleKeyPress}
             />
             <HiPencil className={styles.pencilIcon} onClick={onClickPencil} />
           </div>
