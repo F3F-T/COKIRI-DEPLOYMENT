@@ -5,32 +5,32 @@ const GlobalStyle = createGlobalStyle`
     html {
       font-size: 10px;
     }
-  }  
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  }
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     html {
-        font-size: 14px;
+      font-size: 14px;
     }
-}
-@media (min-width: 1025px) and (max-width: 1440px) {
+  }
+  @media (min-width: 1025px) and (max-width: 1440px) {
     html {
-        font-size: 16px;
+      font-size: 16px;
     }
-}
-@media (min-width: 1441px) and (max-width: 1919px) {
+  }
+  @media (min-width: 1441px) and (max-width: 1919px) {
     html {
-        font-size: 17px;
+      font-size: 16px;
     }
-}
-@media (min-width: 1920px) and (max-width: 2559px) {
+  }
+  @media (min-width: 1920px) and (max-width: 2559px) {
     html {
-        font-size: 17.5px;
+      font-size: 16px;
     }
-}
-@media (min-width: 2560px) {
+  }
+  @media (min-width: 2560px) {
     html {
-        font-size: 18px;
+      font-size: 16px;
     }
-}
+  }
 
 `;
 
