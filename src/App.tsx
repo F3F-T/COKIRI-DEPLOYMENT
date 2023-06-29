@@ -32,12 +32,71 @@ import Footer from "./routes/Footer";
 import KokiriTalk2 from "./routes/코끼리톡/KokiriTalk_Euisung";
 import StyledContainer from "./styles/Toast/container";
 import { ToastContainer } from "react-toastify";
+import Api from "./utils/api";
+import { setAuthenticated, setToken } from "./store/jwtTokenReducer";
 
 function App() {
   const store = useSelector((state: Rootstate) => state);
   const dispatch = useDispatch();
-  //로그인 상태 변경에 따라 rendering 해주기 위함
-  useEffect(() => {}, [store.jwtTokenReducer.authenticated]);
+
+  // 현재 시간과 액세스 토큰의 만료 시간을 비교하여 유효성을 검증하는 함수
+  function isAccessTokenValid(accessTokenExpiresIn) {
+    // 현재 시간을 가져옵니다.
+    const currentTime = new Date().getTime();
+
+    // 액세스 토큰의 만료 시간을 계산합니다.
+    const expirationTime = currentTime + accessTokenExpiresIn;
+
+    console.log(currentTime);
+    console.log(expirationTime);
+    console.log(accessTokenExpiresIn);
+    // 액세스 토큰이 만료되었는지 검증합니다.
+    if (expirationTime <= currentTime) {
+      // 만료되었으면 false를 반환합니다.
+      return false;
+    }
+
+    // 유효한 액세스 토큰이면 true를 반환합니다.
+    return true;
+  }
+
+  // 액세스 토큰의 유효성을 검증하는 예시
+
+  async function reissue() {
+    //interceptor를 사용한 방식 (header에 token값 전달)
+    try {
+      const jsonObj = { accessToken: store.jwtTokenReducer.accessToken };
+      const data = await Api.post("/auth/reissue", jsonObj);
+      dispatch(setToken(data.data));
+      console.log("reissue성공");
+    } catch (err) {
+      console.log(err);
+      alert("get 실패");
+    }
+  }
+
+  useEffect(() => {
+    const accessTokenExpiresIn = store.jwtTokenReducer.accessTokenExpiresIn; // 액세스 토큰의 유효 기간 (밀리초 단위)
+    const isValid = isAccessTokenValid(accessTokenExpiresIn);
+
+    if (isValid) {
+      console.log("액세스 토큰이 유효합니다.");
+    } else {
+      console.log("액세스 토큰이 만료되었습니다.");
+      dispatch(setAuthenticated());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (store.jwtTokenReducer.authenticated) {
+      //처음 들어갈때 reissue해준다
+
+      reissue();
+    } else {
+      console.log("비 로그인 상태 ");
+      console.log(store.jwtTokenReducer);
+    }
+  }, [store.jwtTokenReducer.authenticated]);
 
   return (
     <div className="App">

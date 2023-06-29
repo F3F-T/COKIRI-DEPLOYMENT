@@ -74,10 +74,6 @@ const PostEdit = () => {
     tag: string[];
   }
 
-  interface ModalDefaultType {
-    onClickToggleModal: () => void;
-  }
-
   const [uploadData, setUploadData] = useState<UploadData>();
   let tradeEachOther: boolean = undefined;
   const store = useSelector((state: Rootstate) => state);
@@ -93,12 +89,6 @@ const PostEdit = () => {
   //수정 로직
   const [post, setPost] = useState<PostType>(null);
   const [showImages, setShowImages] = useState([]);
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
-
   interface ArrayObjectSelectState {
     selectedCategory: Category | null | string;
   }
@@ -390,11 +380,6 @@ const PostEdit = () => {
 
   return (
     <div className={styles.postBox}>
-      {isOpenModal && (
-        <Modal onClickToggleModal={onClickToggleModal}>
-          <embed type="text/html" width="800" height="608" />
-        </Modal>
-      )}
       <div className={styles.postUpload}>
         <div className={styles.header}>
           <p className={styles.header_1}>기본 정보</p>
@@ -416,7 +401,6 @@ const PostEdit = () => {
                   alt={`${image}-${id}`}
                   key={image.id}
                   src={image}
-                  onClick={() => onClickToggleModal()}
                 />
                 <TiDelete
                   key={id}
