@@ -110,6 +110,7 @@ Api.interceptors.response.use(
                 "refreshToken이 만료돼서 accesToken을 재발급할수없음"
               );
               //     "refresh token의 만료기간도 지나 재로그인 요청")
+              toastMsg("세션이 만료되어 로그인 창으로 이동합니다");
               history.push("/login");
             }
           } else {

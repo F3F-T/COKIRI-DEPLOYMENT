@@ -246,11 +246,11 @@ const Home = () => {
               </div>
               <div className={styles.startRight2}>
                 {store.jwtTokenReducer.authenticated ? (
+                  <></>
+                ) : (
                   <button className={cx("startBtn")} onClick={onClickStart}>
                     시작하기
                   </button>
-                ) : (
-                  <></>
                 )}
                 {store.userAddressInfoReducer.addressName1 == null ? (
                   <button
