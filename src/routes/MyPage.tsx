@@ -58,7 +58,9 @@ const MyPage = () => {
 
   async function getUserPost_2() {
     try {
-      const res = await Api.get(`/post/user/${paramsId}`);
+      const res = await axios.get(
+        `https://f3f-cokiri.site/post/user/${paramsId}`
+      );
       setOtherPostList((prevState) => {
         return [...res.data.content];
       });

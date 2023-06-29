@@ -146,7 +146,7 @@ const MyPage = () => {
       const res = await Api.get(`/post/user/${paramsId}`);
       console.log("내 게시글", Object.keys(res.data.content).length);
       // @ts-ignore
-      setotherNum(res.data.size);
+      setotherNum(Object.keys(res.data.content).length);
     } catch (err) {
       console.log(err);
       alert("게시글 수 불러오기 실패");
@@ -296,10 +296,10 @@ const MyPage = () => {
                 <p className={styles.postNum}>{otherpostNum}</p>
               )}
             </div>
-            <div className={styles.i1}>
-              <p>상품 거래</p>
-              <p className={styles.tradeNum}>{tradedNum}</p>
-            </div>
+            {/*<div className={styles.i1}>*/}
+            {/*  <p>상품 거래</p>*/}
+            {/*  <p className={styles.tradeNum}>{tradedNum}</p>*/}
+            {/*</div>*/}
           </div>
           {
             /*다른 유저면 다른 if문 하나 더 걸어서 분리*/
