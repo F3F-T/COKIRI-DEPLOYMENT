@@ -87,6 +87,10 @@ const TradeCategory = () => {
       setIsClicked((prevState) => {
         return 8;
       });
+    } else {
+      setIsClicked((prevState) => {
+        return 0;
+      });
     }
   }, []);
 
