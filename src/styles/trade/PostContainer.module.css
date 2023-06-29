@@ -1,11 +1,11 @@
 
 .postContainer{
-    /*width: 1200px;*/
+    width: 75.9375rem;
     border-radius: 10px;
     /*border: 0.5px solid red;*/
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    gap: 4rem;
+    gap: 3.9rem;
 }
 
 .loadingDiv{
