@@ -247,8 +247,7 @@ const Home = () => {
                 끼리끼리 교환하며 새로운 가치를 만들어가요.
               </div>
               <div className={styles.startRight2}>
-                {store.userInfoReducer.id === undefined ||
-                store.userInfoReducer.id === 0 ? (
+                {store.jwtTokenReducer.authenticated ? (
                   <button className={cx("startBtn")} onClick={onClickStart}>
                     시작하기
                   </button>

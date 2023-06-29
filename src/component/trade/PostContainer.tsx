@@ -207,7 +207,7 @@ const PostContainer = (postProps: postProps) => {
       });
       console.log(postList);
       // console.log(sortType);
-      //query string 날리기
+      //query string 날리기체
       if (queryString.length < 1 || !queryString.includes("?tags=")) {
         const res = await axios.get(
           `https://f3f-cokiri.site/post?productCategory=${productCategory}&wishCategory=${wishCategory}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sortType}&size=8&page=0`
