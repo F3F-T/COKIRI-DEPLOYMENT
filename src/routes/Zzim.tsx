@@ -45,7 +45,6 @@ const MyPageZZIM = () => {
       });
     } catch (err) {
       console.log(err);
-      alert("내 스크랩 불러오기 실패");
     }
   }
 

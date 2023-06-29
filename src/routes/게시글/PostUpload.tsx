@@ -14,6 +14,7 @@ import Select from "react-select";
 import Modal from "../로그인 & 회원가입/NeighborModal";
 import { TiDelete } from "react-icons/ti";
 import { setToken } from "../../store/jwtTokenReducer";
+import toastMsg from "../../styles/Toast";
 
 const PostUpload = () => {
   interface UploadData {
@@ -103,7 +104,7 @@ const PostUpload = () => {
   const onChangeTitle = (e) => {
     const inputTitle = e.target.value;
     if (inputTitle.length > 30) {
-      alert("제목은 30글자 이하로 작성해주세요");
+      toastMsg("제목은 30글자 이하로 작성해주세요");
     } else {
       setUploadData((prevState) => {
         return { ...prevState, title: inputTitle };
@@ -159,12 +160,11 @@ const PostUpload = () => {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
       const res = await Api.post("/post", jsonObj);
-      alert("업로드 성공");
+      toastMsg("게시글이 업로드 되었어요.");
       navigate(`/`);
     } catch (err) {
       // setIsUploading(false);
       console.log(err);
-      alert("업로드 실ㅌ패");
     }
   }
 
@@ -174,7 +174,6 @@ const PostUpload = () => {
       return res.data.imageUrls;
     } catch (err) {
       console.log(err);
-      alert("이미지 업로드 실패");
     }
   };
 
@@ -202,12 +201,12 @@ const PostUpload = () => {
         uploadData.productCategory
       )
     ) {
-      alert("업로드 할 내용을 다 채워주세요.");
+      toastMsg("업로드 할 내용을 다 채워주세요.");
     } else {
       const photoUrlList = await imageUpload();
 
       if (photoUrlList.length < 1) {
-        alert("사진을 한장 이상 업로드해주세요.");
+        toastMsg("사진을 한장 이상 업로드해주세요.");
       } else {
         const jsonObj = {
           title: uploadData.title,
@@ -246,7 +245,7 @@ const PostUpload = () => {
       //max를 10장으로 설정
       if (imageUrlLists.length > 10) {
         imageUrlLists = imageUrlLists.slice(0, 10);
-        alert("사진 업로드는 최대 10장입니다.");
+        toastMsg("사진 업로드는 최대 10장 가능해요.");
       }
 
       //미리보기 데이터
@@ -318,7 +317,6 @@ const PostUpload = () => {
       dispatch(setToken(data.data));
     } catch (err) {
       console.log(err);
-      alert("get 실패");
     }
   }
 
@@ -330,7 +328,7 @@ const PostUpload = () => {
       //토큰 만료되면 reissue걸때 게시글 두개 올라가는 버그 막기 위해 reissue먼저 해줌
       reissue();
     } else {
-      alert("로그인후에 가능한 서비스입니다.");
+      toastMsg("로그인후에 가능한 서비스에요.");
       navigate(-1);
     }
   }, [store.jwtTokenReducer.authenticated]);

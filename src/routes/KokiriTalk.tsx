@@ -21,6 +21,7 @@ import {
   setWishCategory,
 } from "../store/talkCardReducer";
 import timeConvert from "../utils/timeConvert";
+import toastMsg from "../styles/Toast";
 
 interface contentInfo {
   id: number;
@@ -221,7 +222,6 @@ const KokiriTalk = () => {
       // console.log('roomlist좀 보자김윤정', res2.data);
     } catch (err) {
       console.log(err);
-      alert("메세지룸 조회 실패 in kokiritalk");
     }
   }
 
@@ -258,7 +258,6 @@ const KokiriTalk = () => {
       console.log("메세지 전송", res.data);
     } catch (err) {
       console.log(err);
-      alert("메세지전송  실패");
     }
   }
 
@@ -272,7 +271,6 @@ const KokiriTalk = () => {
       return res.data;
     } catch (err) {
       console.log(err);
-      alert("메세지룸 내용 조회 실패 in kokiritalk");
     }
   }
 
@@ -292,17 +290,15 @@ const KokiriTalk = () => {
             };
             const res = await Api.delete("/messageRooms", deleteInfo);
             // console.log("메세지룸 내용조회", res.data)
-            alert("메세지룸 내용 영구삭제 ");
+            toastMsg("메세지룸 내용이 삭제되었어요. ");
             await dispatch(resetTalkCard());
           } catch (err) {
             console.log(err);
-            alert("메세지룸 내용 영구삭제 실패");
           }
           setDel((prevState) => prevState + 1);
         }
       } catch (err) {
         console.log(err);
-        alert("메세지룸 내용 조회 실패 in delete");
       }
     }
   }
@@ -327,11 +323,10 @@ const KokiriTalk = () => {
           const res = await Api.delete("/messageRooms", deleteInfo);
 
           // console.log("메세지룸 내용조회", res.data)
-          alert("메세지룸 내용 영구삭제 ");
+          toastMsg("메세지룸 내용이 삭제되었어요.");
           await dispatch(resetTalkCard());
         } catch (err) {
           console.log(err);
-          alert("메세지룸 내용 영구삭제 실패");
         }
       } else {
         try {
@@ -347,19 +342,14 @@ const KokiriTalk = () => {
             deleteInfo
           );
 
-          // console.log("메세지룸 내용조회", res.data)
-          alert("메세지룸 내용 삭제  in kokiritalk");
-
           await dispatch(resetTalkCard());
         } catch (err) {
           console.log(err);
-          alert("메세지룸 내용 삭제 실패 in kokiritalk");
         }
       }
       setDel((prevState) => prevState + 1);
     } catch (err) {
       console.log(err);
-      alert("메세지룸 내용 조회 실패 in delete");
     }
   }
 

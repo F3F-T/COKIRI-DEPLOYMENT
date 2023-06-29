@@ -30,6 +30,8 @@ import FindPW from "./routes/로그인 & 회원가입/비밀번호 찾기/FindPW
 import FindPWResponse from "./routes/로그인 & 회원가입/비밀번호 찾기/FindPWResponse";
 import Footer from "./routes/Footer";
 import KokiriTalk2 from "./routes/코끼리톡/KokiriTalk_Euisung";
+import StyledContainer from "./styles/Toast/container";
+import { ToastContainer } from "react-toastify";
 import Api from "./utils/api";
 import { setAuthenticated, setToken } from "./store/jwtTokenReducer";
 
@@ -102,6 +104,7 @@ function App() {
         <Nav />
         <div className={styles.content_1}>
           <div className={styles.content}>
+            <StyledContainer position="top-center" closeButton={false} />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />

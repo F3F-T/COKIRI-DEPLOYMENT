@@ -27,6 +27,7 @@ import {
   resetaddress2,
   parcelAddress2,
 } from "../../store/userAddressInfoReducer";
+import toastMsg from "../../styles/Toast";
 
 interface AddressType {
   userId: Number;
@@ -55,10 +56,8 @@ const NeighborAuth = () => {
   async function getAddressData(addressID) {
     try {
       const res = await Api.get("/address/" + `${addressID}`);
-      alert("조회 성공");
     } catch (err) {
       console.log(err);
-      alert("조회 실패");
     }
   }
   const getAddressBtn = () => {
@@ -73,10 +72,8 @@ const NeighborAuth = () => {
       setAddressID(res.data.id);
       dispatch(setUserAddressInfo1(res.data.id));
       dispatch(setAddressName1(res.data.addressName));
-      alert("추가 성공");
     } catch (err) {
       console.log(err);
-      alert("추가 실패");
     }
   }
   async function postAddressData_2() {
@@ -88,10 +85,9 @@ const NeighborAuth = () => {
       setAddressID(res.data.id);
       dispatch(setUserAddressInfo2(res.data.id));
       dispatch(setAddressName2(res.data.addressName));
-      alert("추가 성공");
+      toastMsg("추가 성공");
     } catch (err) {
       console.log(err);
-      alert("추가 실패");
     }
   }
   //주소 delete
@@ -105,10 +101,9 @@ const NeighborAuth = () => {
       };
       const res = await Api.delete("/address", addressDelete1);
       dispatch(resetaddress1());
-      alert("삭제 성공");
+      toastMsg("첫번째 주소가 삭제되었어요.");
     } catch (err) {
       console.log(err);
-      alert("삭제 실패");
     }
   }
   async function deleteAddress_2() {
@@ -121,10 +116,9 @@ const NeighborAuth = () => {
       };
       const res = await Api.delete("/address", addressDelete2);
       dispatch(resetaddress2());
-      alert("삭제 성공");
+      toastMsg("두번째 주소가 삭제되었어요.");
     } catch (err) {
       console.log(err);
-      alert("삭제 실패");
     }
   }
   const inputAddressName_1 = (e) => {

@@ -16,6 +16,7 @@ import { logoutUserInfo } from "../../../store/userInfoReducer";
 import { useLocation, useNavigate } from "react-router-dom";
 import { logoutToken } from "../../../store/jwtTokenReducer";
 import { resetTalkCard } from "../../../store/talkCardReducer";
+import toastMsg from "../../../styles/Toast";
 
 const UserDelete = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,6 @@ const UserDelete = () => {
     try {
       const res = await Api.get("/logout");
       console.log(res);
-      // alert("로그아웃");
       dispatch(logoutToken());
       dispatch(logoutUserInfo());
       dispatch(resetaddress1());
@@ -33,17 +33,15 @@ const UserDelete = () => {
       navigate(`/`);
     } catch (err) {
       console.log(err);
-      alert("로그아웃 실패");
     }
   }
   async function deleteUser() {
     try {
       const res = await Api.delete("/user");
-      alert("삭제 성공");
+      toastMsg("회원 탈퇴");
       logOut();
     } catch (err) {
       console.log(err);
-      alert("삭제 실패");
     }
   }
 

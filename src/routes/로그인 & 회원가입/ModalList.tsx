@@ -4,6 +4,7 @@ import React, { PropsWithChildren, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Rootstate } from "../../index";
+import toastMsg from "../../styles/Toast";
 
 interface ModalDefaultType {
   onClickToggleModal: () => void;
@@ -51,7 +52,7 @@ function Modal({
               <button
                 className={styles.btn1}
                 onClick={() => {
-                  alert("로그인 후에 가능한 작업입니다");
+                  toastMsg("로그인 후에 가능한 작업입니다");
                   navigate("/login");
                 }}
               >

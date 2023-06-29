@@ -144,7 +144,6 @@ const PostContainer = (postProps: postProps) => {
       }
     } catch (err) {
       console.log(err);
-      alert("get 실패");
     }
     setIsLoading(false);
   }
@@ -256,7 +255,6 @@ const PostContainer = (postProps: postProps) => {
       console.log(postList);
     } catch (err) {
       console.log(err);
-      alert("get 실패");
     }
   }
 

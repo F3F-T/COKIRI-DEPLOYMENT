@@ -13,6 +13,7 @@ import { NumericFormat } from "react-number-format";
 import Select from "react-select";
 import Modal from "../로그인 & 회원가입/NeighborModal";
 import { TiDelete } from "react-icons/ti";
+import toastMsg from "../../styles/Toast";
 
 /**
  * 수정 로직
@@ -148,9 +149,7 @@ const PostEdit = () => {
 
       setProductState({ selectedCategory: res.data.productCategory });
       setWishState({ selectedCategory: res.data.wishCategory });
-    } catch (err) {
-      alert("get 실패");
-    }
+    } catch (err) {}
   }, []);
 
   interface Category {
@@ -250,12 +249,10 @@ const PostEdit = () => {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
       const res = await Api.patch(`/post/${postId}`, jsonObj);
-
-      alert("수정 성공");
+      toastMsg("게시글이 수정되었어요.");
       navigate(`/post/${postId}`);
     } catch (err) {
       console.log(err);
-      alert("업로드 실패");
     }
   }
 
@@ -265,7 +262,6 @@ const PostEdit = () => {
       return res.data.imageUrls;
     } catch (err) {
       console.log(err);
-      alert("이미지 업로드 실패");
     }
   };
 
@@ -290,7 +286,7 @@ const PostEdit = () => {
     }
 
     if (finalImage.length < 1) {
-      alert("사진을 한장 이상 업로드해주세요.");
+      toastMsg("사진을 한장 이상 업로드해주세요.");
     } else {
       const jsonObj = {
         title: uploadData.title,
@@ -327,7 +323,7 @@ const PostEdit = () => {
       //max를 10장으로 설정
       if (imageUrlLists.length > 10) {
         imageUrlLists = imageUrlLists.slice(0, 10);
-        alert("사진 업로드는 최대 10장입니다.");
+        toastMsg("사진 업로드는 최대 10장입니다.");
       }
 
       //미리보기 데이터
@@ -362,7 +358,7 @@ const PostEdit = () => {
   useEffect(() => {
     if (store.jwtTokenReducer.authenticated) {
     } else {
-      alert("로그인후에 가능한 서비스입니다.");
+      toastMsg("로그인후에 가능한 서비스에요.");
       navigate(-1);
     }
   }, [store.jwtTokenReducer.authenticated]);
