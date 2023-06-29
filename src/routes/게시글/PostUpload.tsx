@@ -44,14 +44,9 @@ const PostUpload = () => {
   const [photoData, setPhotoData] = useState(null);
   const [photoUrl, setPhotoUrl] = useState<string[]>(null);
   let formData;
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   //중복클릭 업로드 방지
   const [isUploading, setIsUploading] = useState(false);
-
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
 
   // const categories: string[] =
   //     ['전체', '도서', '생활가전', '의류', '유아도서', '유아동', '여성의류', '남성의류', '뷰티/미용', '스포츠/레저',
@@ -342,11 +337,6 @@ const PostUpload = () => {
 
   return (
     <div className={styles.postBox}>
-      {isOpenModal && (
-        <Modal onClickToggleModal={onClickToggleModal}>
-          <embed type="text/html" width="800" height="608" />
-        </Modal>
-      )}
       <div className={styles.postUpload}>
         <div className={styles.header}>
           <p className={styles.header_1}>기본 정보</p>
@@ -368,7 +358,6 @@ const PostUpload = () => {
                   alt={`${image}-${id}`}
                   key={image.id}
                   src={image}
-                  onClick={() => onClickToggleModal()}
                 />
                 <TiDelete
                   key={id}
