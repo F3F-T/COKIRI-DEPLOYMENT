@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Tags from "@yaireo/tagify/dist/react.tagify";
 import { changePostRefreshState } from "../store/refreshReducer";
 import { BsSearch } from "react-icons/bs";
+import { resetCategory } from "../store/categoryReducer";
 
 const Nav1 = () => {
   const store = useSelector((state: Rootstate) => state);
@@ -64,13 +65,19 @@ const Nav1 = () => {
           <div className={styles.menu1}>
             <Nav.Link
               className={styles.mulBtn}
-              onClick={() => navigate("/mulmultrade")}
+              onClick={() => {
+                navigate("/mulmultrade");
+                dispatch(resetCategory());
+              }}
             >
               물물교환
             </Nav.Link>
             <Nav.Link
               className={styles.kiriBtn}
-              onClick={() => navigate("/kirikiritrade")}
+              onClick={() => {
+                navigate("/kirikiritrade");
+                dispatch(resetCategory());
+              }}
             >
               끼리끼리
             </Nav.Link>

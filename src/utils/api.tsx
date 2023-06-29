@@ -81,7 +81,6 @@ Api.interceptors.response.use(
          * 3. 로그인이 필요한 서비스인데 로그인을 하지 않았을 때
          */
         case 401: {
-          console.log("401 222");
           const accessToken = store.getState().jwtTokenReducer.accessToken;
           const jsonObj = { accessToken: accessToken };
           //유저 로그인 상태일때
