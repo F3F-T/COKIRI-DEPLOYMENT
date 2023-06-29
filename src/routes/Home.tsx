@@ -69,6 +69,7 @@ const HomeMulmulTrade = () => {
       alert("get 실패");
     }
   }
+  //
 
   const onClickMore = () => {
     navigate(`/mulmultrade?sort=popular`);
