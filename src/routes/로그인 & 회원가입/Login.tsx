@@ -85,7 +85,7 @@ const Login = () => {
   async function postLoginData() {
     //interceptor를 사용한 방식 (header에 token값 전달)
     try {
-      const res = await Api.post("/login", userInfo);
+      const res = await axios.post("https://f3f-cokiri.site/login", userInfo);
       const accessToken = res.data;
       //jwt 토큰 redux에 넣기
       const jwtToken = accessToken.tokenInfo;

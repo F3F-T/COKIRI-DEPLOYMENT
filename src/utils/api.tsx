@@ -71,6 +71,7 @@ Api.interceptors.response.use(
         ${err.response.data.message}`);
     //accessToken이 만료가 돼서 401이 떴을때
     if (err.response && err.response.status === 401) {
+      console.log("401401401401401");
       switch (err.response.status) {
         /**
          * 401 : UNAUTORIZED 권한이 없음
@@ -80,6 +81,7 @@ Api.interceptors.response.use(
          * 3. 로그인이 필요한 서비스인데 로그인을 하지 않았을 때
          */
         case 401: {
+          console.log("401 222");
           const accessToken = store.getState().jwtTokenReducer.accessToken;
           const jsonObj = { accessToken: accessToken };
           //유저 로그인 상태일때
@@ -98,6 +100,7 @@ Api.interceptors.response.use(
                 config.headers.Authorization = `Bearer ${jwtToken}`;
                 // alert("accessToken의 만료기간이 지나서 백엔드 accessToken의 검증실패, reissue로 refresh 토큰의 만료기간이 지나지 않아 refresh token을 활용하여 accessToken 재발급 성공")
                 //성공했으니 err를 반환하지 않고 config 자체를 반환
+                console.log("reissue 성공");
                 return axios(config);
                 // return await Api.request(err.config);
               }
