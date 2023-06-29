@@ -2,7 +2,9 @@
   cursor: pointer;
   //height: 18.375rem;
   height: 19rem;
+  width: 16rem;
   font-size: 1rem;
+  //border: 1px solid red;
 
   .postItem {
     border: 1px solid rgba(200, 200, 200);
@@ -10,7 +12,6 @@
   }
 
   .postImage {
-
     width: 15.5rem;
     height: 12rem;
     margin: 0.2rem;
