@@ -40,6 +40,7 @@ import { Rootstate } from "../../index";
 import Message2 from "../../component/talk/Message2";
 
 import { HiPencil } from "react-icons/hi";
+import toastMsg from "../../styles/Toast";
 
 // 회원이 속한 메시지룸 조회 API : /user/messageRooms API에서 가져올 데이터 interface
 interface MessageRoomInfo {
@@ -217,7 +218,10 @@ const KokiriTalk2 = () => {
       changeMessageRoomState(roomList_original);
     } catch (err) {
       console.log(err);
-      alert("getMessageRoom 조회 실패");
+      toastMsg("로그인 후에 진행해주세요!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     }
   }
 
@@ -340,7 +344,6 @@ const KokiriTalk2 = () => {
       });
     } catch (err) {
       console.log(err);
-      alert("메세지룸 내용 조회 실패 in kokiritalk");
     }
   }
 
@@ -422,7 +425,6 @@ const KokiriTalk2 = () => {
       setInitialRoom(false);
     } catch (err) {
       console.log(err);
-      alert("메세지전송  실패");
     }
   };
 
@@ -458,7 +460,7 @@ const KokiriTalk2 = () => {
   } else {
     if (roomList.length < 1) {
       if (condition) {
-        alert("대화중인 방이 없습니다.");
+        toastMsg("대화중인 방이 없습니다.");
         navigate(`/mulmultrade`);
       }
     }

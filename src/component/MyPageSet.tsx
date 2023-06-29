@@ -13,6 +13,7 @@ import { resetaddress1, resetaddress2 } from "../store/userAddressInfoReducer";
 import { resetTalkCard } from "../store/talkCardReducer";
 import SettingModal from "../routes/로그인 & 회원가입/SettingModal";
 import input = Simulate.input;
+import toastMsg from "../styles/Toast";
 
 const MyPage = () => {
   interface UserInfo {
@@ -135,7 +136,10 @@ const MyPage = () => {
       }
     } catch (err) {
       console.log(err);
-      alert("다른 유저 프로필 정보 조회 실패");
+      toastMsg("다른 이웃의 게시글을 보려면 로그인을 먼저 진행해주세요!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 10);
     }
   }
 
@@ -149,7 +153,6 @@ const MyPage = () => {
       setotherNum(Object.keys(res.data.content).length);
     } catch (err) {
       console.log(err);
-      alert("게시글 수 불러오기 실패");
     }
   }
 
@@ -165,7 +168,6 @@ const MyPage = () => {
       });
     } catch (err) {
       console.log(err);
-      alert("실패??????");
     }
   }
 
@@ -185,7 +187,6 @@ const MyPage = () => {
       setNum(Object.keys(res.data.content).length);
     } catch (err) {
       console.log(err);
-      alert("게시글 수 불러오기 실패");
     }
   }
 
@@ -212,7 +213,7 @@ const MyPage = () => {
     try {
       const res = await Api.get("/logout");
       console.log(res);
-      alert("로그아웃");
+      toastMsg("로그아웃");
       dispatch(logoutToken());
       dispatch(logoutUserInfo());
       dispatch(resetaddress1());
@@ -221,7 +222,6 @@ const MyPage = () => {
       navigate(`/`);
     } catch (err) {
       console.log(err);
-      alert("로그아웃 실패");
     }
   }
   return (

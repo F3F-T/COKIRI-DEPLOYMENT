@@ -7,6 +7,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { history } from "../index";
 import { setToken } from "../store/jwtTokenReducer";
+import toastMsg from "../styles/Toast";
 
 let store;
 
@@ -97,7 +98,6 @@ Api.interceptors.response.use(
               if (jwtToken) {
                 store.dispatch(setToken(data.data));
                 config.headers.Authorization = `Bearer ${jwtToken}`;
-                // alert("accessToken의 만료기간이 지나서 백엔드 accessToken의 검증실패, reissue로 refresh 토큰의 만료기간이 지나지 않아 refresh token을 활용하여 accessToken 재발급 성공")
                 //성공했으니 err를 반환하지 않고 config 자체를 반환
                 console.log("reissue 성공");
                 return axios(config);
@@ -109,13 +109,12 @@ Api.interceptors.response.use(
               console.log(
                 "refreshToken이 만료돼서 accesToken을 재발급할수없음"
               );
-              // alert("accessToken의 만료기간이 지나서 백엔드 accessToken의 검증실패, reissue로 refresh token을 활용하여 accessToken 재발급 시도," +
               //     "refresh token의 만료기간도 지나 재로그인 요청")
               history.push("/login");
             }
           } else {
             //로그인 되지 않은 상태일때
-            alert("로그인이 필요한 작업입니다");
+            toastMsg("로그인이 필요한 작업입니다");
             return new Promise(() => {});
           }
         }

@@ -10,6 +10,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Rootstate } from "../../index";
 import { setPW } from "../../store/userInfoReducer";
+import toastMsg from "../../styles/Toast";
 
 const SignUp = () => {
   const store = useSelector((state: Rootstate) => state);
@@ -113,7 +114,6 @@ const SignUp = () => {
       }
     } catch (err) {
       console.log(err);
-      alert("서버와 통신 실패");
     }
   }
 
@@ -153,7 +153,6 @@ const SignUp = () => {
       }
     } catch (err) {
       console.log(err);
-      alert("서버와 통신 실패");
     }
   }
 
@@ -199,7 +198,6 @@ const SignUp = () => {
       }
     } catch (err) {
       console.log(err);
-      alert("서버와 통신 실패");
     }
   }
 
@@ -216,7 +214,7 @@ const SignUp = () => {
       navigate("/signup/emailcheck", { state: userInfo });
     } else {
       //유효성 검증 하나라도 실패한 경우 회원가입 실패
-      alert("회원가입 정보를 모두 만족시켜주세요");
+      toastMsg("회원가입 정보를 모두 만족시켜주세요");
     }
   };
 
@@ -429,7 +427,7 @@ const SignUp = () => {
       }
     } catch (err) {
       console.log(err);
-      alert("이메일 전송 실패.");
+      toastMsg("이메일 전송 실패");
       //
     }
   }

@@ -12,6 +12,7 @@ import Api from "../../../utils/api";
 import { setUserNick } from "../../../store/userInfoReducer";
 import axios from "axios";
 import Message from "../../../component/로그인 & 회원가입/Message";
+import toastMsg from "../../../styles/Toast";
 
 const NickNameChange = () => {
   interface UserInfo {
@@ -101,7 +102,6 @@ const NickNameChange = () => {
       }
     } catch (err) {
       console.log(err);
-      alert("서버와 통신 실패");
     }
   }
 
@@ -115,16 +115,14 @@ const NickNameChange = () => {
       const res = await Api.patch("/user/nickname", userInfo1);
       setNewNick(res.data.newNickname);
       dispatch(setUserNick(res.data.newNickname));
-      alert("닉넴 변경 성공");
+      toastMsg("닉네임이 변경되었어요.");
     } catch (err) {
       console.log(err);
-      alert("닉넴 변경 실패");
     }
   }
   async function readNickName() {
     try {
       const res = await Api.get("/user");
-      console.log("유저정보", res.data.id);
       setuserInfo((prevState) => {
         return {
           ...prevState,
@@ -133,7 +131,6 @@ const NickNameChange = () => {
       });
     } catch (err) {
       console.log(err);
-      alert("실패??");
     }
   }
   return (

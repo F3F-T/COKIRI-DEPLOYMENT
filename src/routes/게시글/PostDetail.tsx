@@ -25,6 +25,7 @@ import ImageSwiper from "../../component/common/ImageSwiper";
 import Select from "react-select";
 import Modal from "../로그인 & 회원가입/ModalList";
 import axios from "axios";
+import toastMsg from "../../styles/Toast";
 
 const PostDetail = () => {
   let existOrNot: boolean = false;
@@ -173,7 +174,6 @@ const PostDetail = () => {
       }
     } catch (err) {
       console.log(err);
-      alert("get 실패");
     }
   }
 
@@ -190,7 +190,6 @@ const PostDetail = () => {
       });
     } catch (err) {
       console.log(err);
-      alert("get 실패");
     }
   }
 
@@ -212,10 +211,8 @@ const PostDetail = () => {
       const res = await Api.patch(`/trade`, jsonObj);
 
       console.log(res);
-      // alert("교환상태 변경")
     } catch (err) {
       console.log(err);
-      alert("교환상태 변경 실패");
     }
   }
 
@@ -285,12 +282,9 @@ const PostDetail = () => {
                 await dispatch(setMessageRoomId(res4.data.id));
                 await dispatch(setSellerId(res4.data.sellerId));
                 dispatch(setPostId(res4.data.postId));
-                alert("메세지룸 추가 성공");
-
                 break;
               } catch (err) {
                 console.log(err);
-                alert("메세지룸 추가 실패");
               }
             }
           } else {
@@ -311,14 +305,12 @@ const PostDetail = () => {
               break;
             } catch (err) {
               console.log(err);
-              alert("메세지룸 추가 실패 in postdetail");
             }
           }
         }
       }
     } catch (err) {
       console.log(err);
-      alert("메세지룸 조회 실패 in postdetail");
     }
   }
 
@@ -380,13 +372,12 @@ const PostDetail = () => {
         const res = await Api.post(`/post/${postId}/comments`, writeComment);
         dispatch(changeCommentRefreshState());
         setCommentText("");
-        alert("댓글 작성 성공");
+        toastMsg("댓글이 작성되었어요.");
       } else {
       }
       accessableCount = accessableCount + 1;
     } catch (err) {
       console.log(err);
-      alert("댓글 작성 실패");
     }
   }; //
 
@@ -410,12 +401,11 @@ const PostDetail = () => {
 
       if (window.confirm("정말 게시글을 삭제하시겠어요?")) {
         const res = await Api.delete(`/post/${postId}`, config);
-        alert("게시글 삭제 성공");
+        toastMsg("게시글이 삭제되었어요.");
         navigate(`/mulmultrade`);
       }
     } catch (err) {
       console.log(err);
-      alert("게시글 삭제 실패");
     }
   };
 

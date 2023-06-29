@@ -52,7 +52,6 @@ const MyPage = () => {
       console.log("res2.....", res.data.content.length);
     } catch (err) {
       console.log(err);
-      alert("내 게시글 불러오기 실패");
     }
   }
 
@@ -66,7 +65,6 @@ const MyPage = () => {
       });
     } catch (err) {
       console.log(err);
-      alert("실패인가");
     }
   }
 

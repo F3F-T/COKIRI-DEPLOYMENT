@@ -9,6 +9,7 @@ import { Rootstate } from "../../index";
 import { changeCommentRefreshState } from "../../store/refreshReducer";
 import { useNavigate } from "react-router-dom";
 import login from "../../routes/로그인 & 회원가입/Login";
+import toastMsg from "../../styles/Toast";
 
 /**
  * Props 부모 : PostDetail.tsx
@@ -92,13 +93,11 @@ const PrimaryComment = (commentInfo: CommentProps) => {
         dispatch(changeCommentRefreshState());
         console.log(writeComment);
         setReCommentText("");
-        alert("대댓글 작성 성공");
         setEnableReComment((prevState) => !prevState);
       }
       accessableCount = accessableCount + 1;
     } catch (err) {
       console.log(err);
-      alert("대댓글 작성 실패");
     }
   };
 
@@ -133,17 +132,16 @@ const PrimaryComment = (commentInfo: CommentProps) => {
         config
       );
       if (window.confirm("정말 게시글을 삭제하시겠어요?")) {
-        alert("댓글 삭제 성공");
+        toastMsg("댓글 삭제 성공");
         dispatch(changeCommentRefreshState());
       }
     } catch (err) {
       console.log(err);
-      alert("댓글 삭제 실패");
     }
   };
 
   const onClickReport = () => {
-    alert("신고기능은 아직 없어용");
+    toastMsg("신고기능은 아직 준비중이에요.");
   };
 
   return (
@@ -218,17 +216,16 @@ const SecondaryComment = (commentInfo: CommentProps) => {
         config
       );
       if (window.confirm("정말 게시글을 삭제하시겠어요?")) {
-        alert("게시글 삭제 성공");
+        toastMsg("게시글 삭제에 성공했어요.");
         dispatch(changeCommentRefreshState());
       }
     } catch (err) {
       console.log(err);
-      alert("댓글 삭제 실패");
     }
   };
 
   const onClickReport = () => {
-    alert("신고기능은 아직 없어용");
+    toastMsg("신고기능은 아직 준비중이에요.");
   };
 
   return (

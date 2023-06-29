@@ -5,24 +5,12 @@ import { useNavigate } from "react-router-dom";
 import TextInput from "../../component/common/TextInput";
 import Button from "../../component/common/Button";
 import axios from "axios";
-import Modal from "./NeighborModal";
-import GoogleButton from "./GoogleButton.js";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch, useSelector } from "react-redux";
-// import {gapi} from 'gapi-script';
-import {
-  setToken,
-  deleteToken,
-  logoutToken,
-} from "../../store/jwtTokenReducer";
+import { setToken, logoutToken } from "../../store/jwtTokenReducer";
 import { Rootstate } from "../../index";
-import Api from "../../utils/api";
 import {
   setUserInfo,
-  setUserProfile,
-  deleteUserInfo,
-  setUserNick,
-  setUserName,
   setOnelineIntro,
   logoutUserInfo,
   setPW,
@@ -30,8 +18,6 @@ import {
 import {
   parcelAddress1,
   parcelAddress2,
-  setAddress1,
-  setAddress2,
   setAddressName1,
   setAddressName2,
   setLat1,
@@ -42,6 +28,7 @@ import {
   setUserAddressInfo1,
   setUserAddressInfo2,
 } from "../../store/userAddressInfoReducer";
+import toastMsg from "../../styles/Toast";
 
 const Login = () => {
   //성공기원
@@ -112,17 +99,13 @@ const Login = () => {
         dispatch(setLat2(res.data.userInfo.address[1].latitude));
         dispatch(setLng2(res.data.userInfo.address[1].longitude));
       }
-      // dispatch(setAddress1(res.data.userInfo.address[0]))
-      // dispatch(setAddress2(res.data.userInfo.address[1]))
-      alert("로그인 성공");
+      toastMsg("로그인 성공");
       navigate(`/`);
     } catch (err) {
-      console.log(err);
-      alert(
-        "로그인에 실패하였습니다." +
-          `\n` +
-          "아이디 혹은 비밀번호를 다시 확인해주세요"
+      toastMsg(
+        "로그인에 실패했어요. 아이디 혹은 비밀번호를 다시 확인해주세요!"
       );
+      console.log(err);
     }
   }
   const handleClick = () => {
@@ -191,11 +174,6 @@ const Login = () => {
   return (
     <>
       <div className={styles.box}>
-        {/*{isOpenModal && (*/}
-        {/*    <Modal onClickToggleModal={onClickToggleModal}>*/}
-        {/*        <embed type="text/html" src={url} width="800" height="608"/>*/}
-        {/*    </Modal>*/}
-        {/*)}*/}
         <div className={styles.loginAllContent}>
           <section className={styles.header}>
             <img src={loginImg} className={styles.loginImg}></img>

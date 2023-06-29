@@ -77,7 +77,6 @@ function Modal({
       dispatch(setLng1(JSON.stringify(location.coordinates.lng)));
     } catch (err) {
       console.log(err);
-      alert("추가 실패");
     }
   }
 
@@ -93,11 +92,8 @@ function Modal({
       dispatch(setClick2(1));
       dispatch(setLat2(JSON.stringify(location.coordinates.lat)));
       dispatch(setLng2(JSON.stringify(location.coordinates.lng)));
-
-      // alert("추가 성공")
     } catch (err) {
       console.log(err);
-      alert("추가 실패");
     }
   }
 
@@ -112,10 +108,8 @@ function Modal({
       };
       const res = await Api.delete("/address", addressDelete1);
       dispatch(resetaddress1());
-      // alert("삭제 성공")
     } catch (err) {
       console.log(err);
-      alert("삭제 실패");
     }
   }
 
@@ -129,10 +123,8 @@ function Modal({
       };
       const res = await Api.delete("/address", addressDelete2);
       dispatch(resetaddress2());
-      // alert("삭제 성공")
     } catch (err) {
       console.log(err);
-      alert("삭제 실패");
     }
   }
 

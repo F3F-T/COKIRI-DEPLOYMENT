@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import styles from '../../styles/talk/talkList.module.scss';
-import classNames from 'classnames/bind';
-import { useDispatch, useSelector } from 'react-redux';
-import Api from '../../utils/api';
-import { Rootstate } from '../../index';
-
+import React, { useEffect } from "react";
+import styles from "../../styles/talk/talkList.module.scss";
+import classNames from "classnames/bind";
+import { useDispatch, useSelector } from "react-redux";
+import Api from "../../utils/api";
+import { Rootstate } from "../../index";
 
 // type clickOrNot = true | false ;
 const tl = classNames.bind(styles);
@@ -44,7 +43,6 @@ const TalkListLeft = (props2: props) => {
     return state.userInfoReducer;
   });
 
-
   // console.log("TalkList props",props2);
   return (
     <>
@@ -67,7 +65,6 @@ const TalkListLeft = (props2: props) => {
   );
 };
 
-
 const TalkList = (props2: props) => {
   const talkCard = useSelector((state: Rootstate) => {
     return state.talkCardReducer;
@@ -85,27 +82,27 @@ const TalkList = (props2: props) => {
     // getMessageRoom()
   }, [realCount]);
 
-
   async function getMessageRoom() {
     try {
       const res2 = await Api.get(`/user/${info.id}/totalMessageRooms`);
-
     } catch (err) {
       console.log(err);
-      alert('메세지룸 조회 실패 in Talklist');
     }
   }
 
   return (
     <>
       {/*<TalkListLeft keys={key} onClick={props2.onClick} partner={partner} lastContent={msg} date={timeConvert(date)} counts={realCount}/>*/}
-      <TalkListLeft keys={props2.keys} onClick={props2.onClick} partner={props2.partner}
-                    lastContent={props2.lastContent} date={props2.date} counts={realCount} />
-
+      <TalkListLeft
+        keys={props2.keys}
+        onClick={props2.onClick}
+        partner={props2.partner}
+        lastContent={props2.lastContent}
+        date={props2.date}
+        counts={realCount}
+      />
     </>
-
   );
 };
-
 
 export default TalkList;
