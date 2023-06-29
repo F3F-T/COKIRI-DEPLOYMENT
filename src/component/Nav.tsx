@@ -75,9 +75,6 @@ const Nav1 = () => {
               끼리끼리
             </Nav.Link>
           </div>
-
-          {/*<form className={styles.searchBox}>*/}
-          {/*<input className={styles.search} type="search" placeholder=" #해시태그를 검색하세요!" aria-disabled="true"/>*/}
           <div className={styles.tagDiv}>
             <Tags
               className={styles.customLook}

@@ -5,6 +5,7 @@ import Card from "../component/tradeCard/Card";
 import Api from "../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import { Rootstate } from "../index";
+import axios from "axios";
 
 // interface TextInputProps {
 //     init: string;
@@ -141,8 +142,7 @@ const MyPage = () => {
           <>
             {otherPost.length === 0 ? (
               <div className={styles.NoData}>
-                아직 올리신 게시글이 없으시네요. &nbsp; &nbsp;교환하고 싶은
-                물건을 올려보세요!😋
+                아직 올리신 게시글이 없어요!😋
               </div>
             ) : (
               <div className={styles.container}>
