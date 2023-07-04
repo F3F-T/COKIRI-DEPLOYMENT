@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# Co-Kiri
+끼리끼리 교환하며 새로운 가치를 만들어가는 물물교환 플랫폼
+### Summary
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+저희 프로젝트 Co-kiri는 위치기반으로 근처에 있는 사용자들끼리 사용하지 않는 물건들을 다양한 관심사에 따라 카테고리끼리 교환할 수 있는 물물교환 플랫폼입니다.
 
-## Available Scripts
+- 집에 쌓여있는 책들을 다른 새로운 책들로 교환할 수 있다면 얼마나 좋을까요?
+- 큰 용량의 식품이 항상 부담이었던 자취생들끼리 서로 교환할 수 있다면 얼마나 좋을까요?
+- 보유하고 있는 기프트콘, 티켓, 교환권 등을 자신의 필요에 따라 더욱 유연하게 교환하고 사용할 수 있다면 얼마나 좋을까요?
 
-In the project directory, you can run:
+그 외 티켓/교환권, 의류, 유아동용품, 운동용품 뿐만 아니라 서비스/기술까지 다양한 카테고리에 따라 코끼리(Co-Kiri)와 함께 끼리끼리 교환하며 새로운 가치를 만들어가요.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 배포 주소
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+> 프론트 서버 : https://main.d8tw528p0jeqh.amplifyapp.com
 
-### `npm test`
+> 백엔드 서버 : https://f3f-cokiri.site
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> Api 문서 링크 : https://f3f-cokiri.site/api-guide
 
-### `npm run build`
+### 화면 구성
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> 홈 화면
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Frontend :  React, Typescript, Redux-toolkit, css module, bootstrap, aws amplify
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Backend : 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
